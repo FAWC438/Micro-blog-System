@@ -17,9 +17,49 @@
     <script src="/js/mainPage.js"></script>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   </head>
+
   <body>
-    <div id="homeWarp" class="homeWarp">
-        <!-- TODO -->
+    <div id="home-warp" class="home-warp">
+      <!-- 发送微博面板 -->
+      <div class="send-panel">
+        <form id="send-form" action="#" method="post">
+          <!-- 输入区域 -->
+          <div class="input-div">
+            <textarea
+              placeholder="有什么新鲜事想分享给大家？"
+              class="input-area"
+              style="width: 100%; height: 48px"
+            >
+            </textarea>
+          </div>
+
+          <!-- 下方按钮 -->
+          <div class="buttons-flex">
+            <div class="icon-item-at"></div>
+            <div class="icon-item-img"></div>
+            <!-- 输入框有内容才能enabled -->
+            <button class="submit-button" type="submit" disabled="disabled">
+              <span class="button-content">发送</span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- 排序面板 -->
+      <div class="sort-panel">
+        <button id="publish-date" class="sort-panel-button" type="button">
+          <span class="button-content">发布时间</span>
+        </button>
+        <button id="comment-number" class="sort-panel-button" type="button">
+          <span class="button-content">评论数</span>
+        </button>
+        <button id="like-number" class="sort-panel-button" type="button">
+          <span class="button-content">点赞数</span>
+        </button>
+      </div>
+
+      <div class="weibo-content-recycle-scroller">
+        <!-- TODO: 用thymeleaf实现循环，显示多个微博 -->
+      </div>
     </div>
   </body>
 </html>
