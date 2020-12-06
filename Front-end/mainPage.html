@@ -24,7 +24,7 @@
       <div class="send-panel">
         <form id="send-form" action="#" method="post">
           <!-- 输入区域 -->
-          <div class="input-div">
+          <div class="input-body">
             <textarea
               placeholder="有什么新鲜事想分享给大家？"
               class="input-area"
@@ -35,8 +35,15 @@
 
           <!-- 下方按钮 -->
           <div class="buttons-flex">
-            <div class="icon-item-at"></div>
-            <div class="icon-item-img"></div>
+            <div class="icon-item-at" title="@其他人">
+              <!-- i标签通过::before插入图片，详见
+              https://blog.csdn.net/crxk_/article/details/107338004
+              -->
+              <i class="at-icon"></i>
+            </div>
+            <div class="icon-item-img" title="发送图片">
+              <i class="img-icon"></i>
+            </div>
             <!-- 输入框有内容才能enabled -->
             <button class="submit-button" type="submit" disabled="disabled">
               <span class="button-content">发送</span>
@@ -57,8 +64,87 @@
         </button>
       </div>
 
-      <div class="weibo-content-recycle-scroller">
+      <!-- 微博内容 -->
+      <div class="weibo-body-recycle-scroller">
         <!-- TODO: 用thymeleaf实现循环，显示多个微博 -->
+        <div class="weibo-body-single">
+          <article class="weibo-body">
+            <div class="weibo-main">
+              <!-- 用户头像、用户名、发送时间 -->
+              <header class="weibo-info">
+                <!-- 用户头像，点击跳转用户页面 -->
+                <a href="#" class="weibo-info-user-avatar">
+                  <div class="weibo-info-user-avatar-body">
+                    <img src="#" alt="头像显示错误" />
+                    <!-- hoverMask将方形头像转换为圆形 -->
+                    <div class="user-avatar-hoverMask"></div>
+                  </div>
+                </a>
+                <!-- 用户名，发送时间 -->
+                <div class="weibo-info-text">
+                  <!-- 用户名 -->
+                  <a href="#" class="weibo-info-user-name"></a>
+                  <!-- 发送时间 -->
+                  <a
+                    href="#"
+                    title="TODO: 实际发送时间"
+                    class="weibo-info-send-date"
+                  ></a>
+                </div>
+              </header>
+              <!-- 微博内容 -->
+              <div class="weibo-content">
+                <div class="weibo-content-text">
+                  <!-- TODO: 微博文字内容 -->
+                </div>
+                <div class="weibo-content-img">
+                  <!-- 可以多个图片 -->
+                  <div class="weibo-content-img-single">
+                    <img src="#" alt="图片显示错误" />
+                    <!-- hoverMask将图片变得圆滑 -->
+                    <div class="img-hoverMask"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <footer class="weibo-content-footer">
+              <div class="weibo-content-footer-body">
+                <!-- 微博下方的评论按钮 -->
+                <div class="weibo-content-footer-item">
+                  <div class="weibo-content-footer-item-center">
+                    <div class="icon-item-comment" title="评论">
+                      <i class="comment-icon"></i>
+                    </div>
+                  </div>
+                </div>
+                <!-- 微博下方的点赞按钮 -->
+                <div class="weibo-content-footer-item">
+                  <div class="weibo-content-footer-item-center">
+                    <div class="icon-item-like" title="点赞">
+                      <i class="like-icon"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </article>
+        </div>
+      </div>
+
+      <div class="split-page-bottom">
+        <!-- 分页参考 
+          https://www.runoob.com/css3/css3-pagination.html 
+          需要通过后端改写
+        -->
+        <li><a class="page-inactive" href="#">«</a></li>
+        <li><a class="page-inactive" href="#">1</a></li>
+        <li><a class="page-active" href="#">2</a></li>
+        <li><a class="page-inactive" href="#">3</a></li>
+        <li><a class="page-inactive" href="#">4</a></li>
+        <li><a class="page-inactive" href="#">5</a></li>
+        <li><a class="page-inactive" href="#">6</a></li>
+        <li><a class="page-inactive" href="#">7</a></li>
+        <li><a class="page-inactive" href="#">»</a></li>
       </div>
     </div>
   </body>
