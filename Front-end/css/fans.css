@@ -42,13 +42,13 @@ header{
     background-color: white;
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 170px;
     height: 1000px;
     margin: 10px;
 }
 .view-container{
     background-color: white;
-    width: 1000px;
+    width: 700px;
     margin: 10px;
 }
 .icon{
