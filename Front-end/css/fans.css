@@ -1,0 +1,103 @@
+header{
+    display: flex;
+    background: url(header_bg.png) no-repeat;
+    width: 100%;
+    height: 150px;
+}
+.usr-left{
+}
+.usr-avatar {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    margin: 30px 40px;
+    border: 1px solid;
+}
+.user-name{
+    color: white;
+    margin: 35px 0 0 30px;
+    font-weight: bold;
+}
+
+.detail-num{
+    display: flex;
+    width: 300px;
+    height: 30px;
+    justify-content: space-around;
+    color: white;
+}
+.detail-cate{
+    display: flex;
+    width: 300px;
+    height: 40px;
+    justify-content: space-around;
+    color: darkgray;
+}
+.container{
+    background-color: #e7e7e7;
+    height: 1000px;
+    display: flex;
+}
+.left-box{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 1000px;
+    margin: 10px;
+}
+.view-container{
+    background-color: white;
+    width: 1000px;
+    margin: 10px;
+}
+.icon{
+    height: 20px;
+    width: 20px;
+}
+.item{
+    display: flex;
+    width: 120px;
+    align-items: center;
+    margin: 25px 0 0 20px;
+}
+.item-name{
+    margin-left: 20px;
+}
+span{
+    margin-left: 10px;
+}
+.title{
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.small-avator{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.view-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn{
+    width: 50px;
+    border-radius: 10px;
+    border: 1px solid;
+    text-align: center;
+    color: orange;
+    margin-right: 20px;
+}
+.item-left{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 20px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
