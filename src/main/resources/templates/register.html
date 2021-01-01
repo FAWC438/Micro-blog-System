@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>注册</title>
+    <link rel="stylesheet" href="/css/register.css"/>
+    <link type="text/css" href="https://fonts.font.im/css?family=Do+Hyeon" rel="stylesheet"/>
+    <script src="/js/register.js"></script>
+</head>
+
+<body>
+
+<div class="signup-form">
+    <form th:action="@{/register}" name="signup" id="signup" method="POST">
+        <h1 th:text="${msg}?用户名已存在:注册">
+            用户名已存在
+        </h1>
+        <label>
+            <input
+                    type="text"
+                    name="username"
+                    placeholder="User Name"
+                    class="txtb"
+                    autofocus="autofocus"
+                    required="required"
+                    autocomplete="off"
+            />
+        </label>
+        <label>
+            <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    class="txtb"
+                    required="required"
+            />
+        </label>
+        <input type="submit" value="注册" class="signup-btn"/>
+        <a href="https://github.com/FAWC-bupt/WebFinal">Star us on Github</a>
+    </form>
+</div>
+</body>
+</html>

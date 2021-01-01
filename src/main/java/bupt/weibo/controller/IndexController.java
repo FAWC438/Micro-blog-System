@@ -1,0 +1,17 @@
+package bupt.weibo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class IndexController {
+    @GetMapping("/")
+    String index() {
+        return "redirect:/mainPage";
+    }
+
+    @GetMapping("/admin")
+    String admin() {
+        return "redirect:/h2-console";
+    }
+}

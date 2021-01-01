@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>登录</title>
+    <link rel="stylesheet" href="/css/login.css"/>
+    <link type="text/css" href="https://fonts.font.im/css?family=Do+Hyeon" rel="stylesheet"/>
+    <script src="/js/login.js"></script>
+</head>
+
+<body>
+
+
+<script th:inline="javascript">
+    const single = [[${alertMsg}]];
+    if (single !== null) {
+        alert(single)
+    }
+</script>
+<div class="signup-form">
+    <form th:action="@{/login}" name="signup" id="signup" method="POST">
+        <h1 th:text="${param.error}?无效的用户名或密码:登录">
+            登录
+        </h1>
+        <label>
+            <input
+                    type="text"
+                    name="username"
+                    placeholder="User Name"
+                    class="txtb"
+                    autofocus="autofocus"
+                    required="required"
+                    autocomplete="off"
+            />
+        </label>
+        <label>
+            <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    class="txtb"
+                    required="required"
+            />
+        </label>
+        <input type="submit" value="登录" class="signup-btn"/>
+        <a href="https://github.com/FAWC-bupt/WebFinal">Star us on Github</a>
+        <!--        <h2>User for test: admin</h2>-->
+        <!--        <h2>Password for test: 123456</h2>-->
+    </form>
+</div>
+</body>
+</html>

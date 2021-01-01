@@ -21,10 +21,6 @@ div.home-warp {
 /* 发送面板 */
 div.send-panel {
     background-color: #fff;
-    border-top: 1px solid #f9f9f9;
-    border-right: 1px solid #f9f9f9;
-    border-bottom: 1px solid #f9f9f9;
-    border-left: 1px solid #f9f9f9;
     border-radius: 4px;
     border-color: #f2f2f2;
     margin-bottom: 8px;
@@ -76,7 +72,6 @@ div.icon-items {
 
 div.icon-item {
     box-sizing: border-box;
-    display: inline-block;
     font-size: 1rem;
     margin: 0 4px 0 0;
     display: flex;
@@ -105,7 +100,7 @@ div.icon-item:hover {
 }
 
 i.at-icon {
-    font-family: woo;
+    font-family: woo, serif;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
     font-feature-settings: normal;
@@ -125,7 +120,7 @@ i.at-icon::before {
 }
 
 i.img-icon {
-    font-family: woo;
+    font-family: woo, serif;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
     font-feature-settings: normal;
@@ -146,7 +141,6 @@ i.img-icon::before {
 
 button.submit-button {
     margin-left: auto;
-    background-color: transparent;
     border: 0;
     box-sizing: border-box;
     font-weight: 600;
@@ -155,10 +149,8 @@ button.submit-button {
     position: relative;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
     font-size: 0.875rem;
-    padding: 0.5625rem 1.875rem;
     width: 68px;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0.5625rem 0;
     border-radius: 2.25rem;
     background: #ff8200;
     color: #fff;
@@ -176,11 +168,8 @@ div.sort-panel {
     z-index: 89;
     top: 58px;
     transition: all 0.15s ease-in;
-    background-color: #fff;
-    border-top: 1px solid #f9f9f9;
-    border-right: 1px solid #f9f9f9;
-    border-bottom: 1px solid #f9f9f9;
-    border-left: 1px solid #f9f9f9;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
     border-radius: 4px;
     border-color: #f2f2f2;
     margin-bottom: 8px;
@@ -190,9 +179,6 @@ div.sort-panel {
 
 button.sort-panel-button {
     box-sizing: border-box;
-    display: inline-block;
-    font-size: 1rem;
-    width: 12.5%;
     vertical-align: top;
     display: flex;
     align-items: center;
@@ -213,7 +199,7 @@ button.sort-panel-button {
     font-size: 14px;
     font-weight: bold;
     color: #333;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0);
     border: none;
     outline: none;
 }
@@ -224,9 +210,6 @@ button.sort-panel-button:hover {
 
 button.sort-panel-button-cur {
     box-sizing: border-box;
-    display: inline-block;
-    font-size: 1rem;
-    width: 12.5%;
     vertical-align: top;
     display: flex;
     align-items: center;
@@ -246,7 +229,7 @@ button.sort-panel-button-cur {
     cursor: pointer;
     font-size: 14px;
     color: #ff8200;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0);
     border: none;
     font-weight: bold;
     outline: none;
@@ -281,10 +264,6 @@ div.weibo-body-single {
 
 article.weibo-body {
     background-color: #fff;
-    border-top: 1px solid #f9f9f9;
-    border-right: 1px solid #f9f9f9;
-    border-bottom: 1px solid #f9f9f9;
-    border-left: 1px solid #f9f9f9;
     box-sizing: border-box;
     position: relative;
     -webkit-tap-highlight-color: transparent;
@@ -383,7 +362,6 @@ div.weibo-content-text {
 }
 
 div.weibo-content-img {
-    margin-top: 10px;
     flex-wrap: wrap;
     width: 75.6%;
     margin-left: -0.25rem;
@@ -434,9 +412,6 @@ div.weibo-content-footer-item {
     font-size: 16px;
     color: grey;
     font-weight: 400;
-    height: auto;
-    -webkit-box-align: center;
-    align-items: center;
     margin-left: -3px;
     height: 100%;
 }
@@ -459,7 +434,7 @@ span.icon-num {
 }
 
 i.comment-icon {
-    font-family: woo;
+    font-family: woo, serif;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
     font-feature-settings: normal;
@@ -480,7 +455,7 @@ i.comment-icon:hover {
 }
 
 i.like-icon {
-    font-family: woo;
+    font-family: woo, serif;
     -webkit-font-smoothing: antialiased;
     font-style: normal;
     font-feature-settings: normal;
