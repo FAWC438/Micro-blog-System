@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>关注与粉丝</title>
-    <link rel="stylesheet" href="../static/fans/fans.css">
-    <script src="../static/fans/fans.js"></script>
+    <link rel="stylesheet" href="../static/css/fans.css">
+    <script src="../static/js/fans.js"></script>
 </head>
 <body>
 
 <header>
     <div class="usr-left">
-        <img class="usr-avatar" src="../static/fans/user_avatar.JPG">
+        <img class="usr-avatar" src="../static/img/user_avatar.JPG" alt="图片显示错误">
     </div>
     <div class="usr-info">
         <p class="user-name">wtl_bupt</p>
@@ -32,19 +34,19 @@
     <div class="left-box">
         <a href="myweibo.html">
             <div class="item">
-                <img class="icon" src="../static/fans/列表_0.png">
+                <img class="icon" src="../static/img/列表_0.png" alt="图片显示错误">
                 <span>我的微博</span>
             </div>
         </a>
         <a href="fans.html">
             <div class="item">
-                <img class="icon" src="../static/fans/关注_1.png">
+                <img class="icon" src="../static/img/关注_1.png" alt="图片显示错误">
                 <span style="color: orange">关注与粉丝</span>
             </div>
         </a>
         <a href="myat.html">
             <div class="item">
-                <img class="icon" src="../static/fans/艾特_0.png">
+                <img class="icon" src="../static/img/艾特_0.png" alt="图片显示错误">
                 <span>@与我相关</span>
             </div>
         </a>
@@ -57,7 +59,7 @@
         <div class="view-item">
             <div class="item-left">
                 <a class="item-img" href="fans.html">
-                    <img src="../static/fans/user_avatar.JPG" class="small-avator">
+                    <img src="../static/img/user_avatar.JPG" class="small-avator" alt="图片显示错误">
                 </a>
                 <a class="item-name" href="fans.html">wtl_bupt</a>
             </div>
@@ -72,7 +74,7 @@
         <div class="view-item">
             <div class="item-left">
                 <a class="item-img" href="fans.html">
-                    <img src="../static/fans/user_avatar.JPG" class="small-avator">
+                    <img src="../static/img/user_avatar.JPG" class="small-avator" alt="图片显示错误">
                 </a>
                 <a class="item-name" href="fans.html">wtl_bupt</a>
             </div>
