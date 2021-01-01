@@ -14,25 +14,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/")
-public class UserController {
+public class RegisterController {
 
     @Autowired
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
 
-    @GetMapping("/login")
-    String login() {
-        return "login";
-    }
 
     @GetMapping("/register")
     String register() {
@@ -40,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    String registerDone(Model model, String username, String password, RedirectAttributes redirectAttributes) {
+    String checkRegister(Model model, String username, String password, RedirectAttributes redirectAttributes) {
         WeiboUser weiboUser = userRepository.findByUsername(username);
         if (weiboUser != null) {
             model.addAttribute("msg", "用户名已存在！");

@@ -14,7 +14,6 @@ import java.io.IOException;
 public class MyAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        //返回json形式的错误信息
         response.setCharacterEncoding("UTF-8");
         response.sendError(403, "你没有权限访问该页面");
     }
