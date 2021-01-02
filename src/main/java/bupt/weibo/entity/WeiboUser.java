@@ -2,6 +2,7 @@ package bupt.weibo.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,6 +37,25 @@ public class WeiboUser implements UserDetails {
 
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<WeiboRole> roles;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @OneToMany
+    private List<WeiboUser> weiboUsers = new ArrayList<>();
+
+    @OneToMany
+    private List<Weibo> weibos = new ArrayList<>();
+
+    @Column(nullable = false)
+    private Integer attentionNum = 0;
+
+    @Column(nullable = false)
+    private Integer fansNum = 0;
+
+    @Column(nullable = false)
+    private Integer weiboNum = 0;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

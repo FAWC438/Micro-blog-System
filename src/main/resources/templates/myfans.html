@@ -22,7 +22,7 @@
                 <p>45</p>
                 <p>1152</p>
             </div>
-            <div class="detail-cate">
+            <div class="detail-cate" th:object="${user}">
                 <p>关注数</p>
                 <p>粉丝数</p>
                 <p>微博数</p>
@@ -32,19 +32,19 @@
 </header>
 <div class="container">
     <div class="left-box">
-        <a href="myweibo.html">
+        <a href="/myweibo">
             <div class="item">
                 <img class="icon" src="/img/列表_0.png" alt="图片显示错误">
                 <span>我的微博</span>
             </div>
         </a>
-        <a href="fans.html">
+        <a href="/myfans">
             <div class="item">
                 <img class="icon" src="/img/关注_1.png" alt="图片显示错误">
                 <span style="color: orange">关注与粉丝</span>
             </div>
         </a>
-        <a href="myat.html">
+        <a href="/myat">
             <div class="item">
                 <img class="icon" src="/img/艾特_0.png" alt="图片显示错误">
                 <span>@与我相关</span>
@@ -58,12 +58,12 @@
         </div>
         <div class="view-item">
             <div class="item-left">
-                <a class="item-img" href="fans.html">
+                <a class="item-img" href="myfans.html">
                     <img src="/img/user_avatar.JPG" class="small-avator" alt="图片显示错误">
                 </a>
-                <a class="item-name" href="fans.html">wtl_bupt</a>
+                <a class="item-name" href="myfans.html">wtl_bupt</a>
             </div>
-            <a class="btn" href="fans.html">关注</a>
+            <a class="btn" href="myfans.html">关注</a>
         </div>
     </div>
     <div class="view-container">
@@ -73,12 +73,12 @@
         </div>
         <div class="view-item">
             <div class="item-left">
-                <a class="item-img" href="fans.html">
+                <a class="item-img" href="myfans.html">
                     <img src="/img/user_avatar.JPG" class="small-avator" alt="图片显示错误">
                 </a>
-                <a class="item-name" href="fans.html">wtl_bupt</a>
+                <a class="item-name" href="myfans.html">wtl_bupt</a>
             </div>
-            <a class="btn" href="fans.html">关注</a>
+            <a class="btn" href="myfans.html">关注</a>
         </div>
     </div>
 </div>
