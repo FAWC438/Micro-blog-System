@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>邮件激活失败</title>
+    <link rel="stylesheet" href="/css/login.css"/>
+    <link type="text/css" href="https://fonts.font.im/css?family=Do+Hyeon" rel="stylesheet"/>
+    <script src="/js/login.js"></script>
+</head>
+
+<body>
+
+<div class="signup-form">
+    <form th:action="@{/activeUserEmail/reSend}" name="signup" id="signup" method="GET">
+        <h1 th:text="${states}">
+            邮件激活失败
+        </h1>
+        <input type="submit" value="重写发送验证邮件" class="signup-btn"/>
+        <a href="https://github.com/FAWC-bupt/WebFinal">Star us on Github</a>
+        <!--        <h2>User for test: admin</h2>-->
+        <!--        <h2>Password for test: 123456</h2>-->
+    </form>
+</div>
+</body>
+</html>

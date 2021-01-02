@@ -25,8 +25,14 @@ public class WeiboUser implements UserDetails {
     @Column(nullable = false, unique = true)
     @NotEmpty(message = "姓名不能为空")
     private String username;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false, unique = true)
+    private String email;
+    private String emailOutDate;
+    private String validCode;
     private boolean AccountNonLocked;
+    private boolean active;
 
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<WeiboRole> roles;
@@ -36,7 +42,7 @@ public class WeiboUser implements UserDetails {
         List<GrantedAuthority> auths = new ArrayList<>();
         List<WeiboRole> roles = this.getRoles();
         for (WeiboRole role : roles) {
-            auths.add(new SimpleGrantedAuthority(role.getName()));
+            auths.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
         System.out.println(auths);
         return auths;
@@ -59,6 +65,6 @@ public class WeiboUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return active;
     }
 }

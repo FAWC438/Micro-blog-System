@@ -93,11 +93,12 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
                 assert future != null;
                 WeiboApplication.map.put(user.getUsername(), future);
             }
-            response.sendRedirect("/login/401?msg=" + e.getMessage() + "&username=" + userName);
+            //response.sendRedirect("/error/401?msg=" + e.getMessage() + "&username=" + userName);
+            response.sendRedirect("/error/401");
             return;
         }
         if (e instanceof LockedException) {
-            response.sendRedirect("/login/401?msg=" + e.getMessage() + "&username=" + userName);
+            response.sendRedirect("/error/401?msg=" + e.getMessage() + "&username=" + userName);
         } else {
             response.sendRedirect("/login?error");
         }

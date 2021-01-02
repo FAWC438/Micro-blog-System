@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login/**", "/register", "/static/**", "/h2-console/**").permitAll()
+                .antMatchers("/login/**", "/error/**", "/register/**", "/activeUserEmail", "/static/**", "/h2-console/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 // 配置被拦截时的处理
@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 //添加无权限时的处理
                 .accessDeniedHandler((request, response, e) -> {
-                    response.sendRedirect("/login/403?msg=" + e.getMessage());
+                    response.sendRedirect("/error/403?msg=" + e.getMessage());
                 })
                 .and()
                 .formLogin()

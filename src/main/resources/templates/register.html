@@ -12,16 +12,26 @@
 
 <div class="signup-form">
     <form th:action="@{/register}" name="signup" id="signup" method="POST">
-        <h1 th:text="${msg}?用户名已存在:注册">
-            用户名已存在
+        <h1 th:text="${msg}?${msg}:注册">
+            注册
         </h1>
+        <label>
+            <input
+                    type="text"
+                    name="email"
+                    placeholder="E-mail"
+                    class="txtb"
+                    autofocus="autofocus"
+                    required="required"
+                    autocomplete="off"
+            />
+        </label>
         <label>
             <input
                     type="text"
                     name="username"
                     placeholder="User Name"
                     class="txtb"
-                    autofocus="autofocus"
                     required="required"
                     autocomplete="off"
             />

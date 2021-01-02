@@ -19,7 +19,12 @@ public class CustomUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         WeiboUser user = userRepository.findByUsername(s);
         if (user == null) {
-            throw new UsernameNotFoundException("用户名不存在");
+            WeiboUser emailUser = userRepository.findByEmail(s);
+            if (emailUser == null) {
+                throw new UsernameNotFoundException("用户名、邮箱不存在!");
+            } else {
+                user = userRepository.findByEmail(s);
+            }
         }
         return user;
     }

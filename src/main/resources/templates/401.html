@@ -12,16 +12,20 @@
 <div class="wrap">
     <table>
         <tr>
-            <td rowspan="5" style=""><img src="https://ws1.sinaimg.cn/large/a15b4afegy1fhsfdznep4j2020020web.jpg"
-                                          alt="又一个极简的错误页面"></td>
             <td class="header">很抱歉！当前页面找不到了</td>
         </tr>
         <tr>
-            <td>原因：用户在短时间内输入三次错误密码，账户锁定一小时</td>
+            <td>原因一：用户在短时间内输入三次错误密码，账户锁定一小时</td>
         </tr>
         <tr>
-            <td th:text="${param.msg}"></td>
+            <td>原因二：用户信息错误</td>
         </tr>
+        <tr>
+            <td>原因三：用户未激活</td>
+        </tr>
+        <!--        <tr>-->
+        <!--            <td th:text="${param.msg}"></td>-->
+        <!--        </tr>-->
         <tr>
             <td>如果无法解决问题，你可以通过发送邮件至<a href="lingguohan@bipt.edu.cn">我们的邮箱</a>反馈</td>
         </tr>
