@@ -24,6 +24,8 @@ import java.util.Set;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+// DELETE FROM CUSTOMER;
+
 @Component
 public class LoginFailureHandler implements AuthenticationFailureHandler {
 
@@ -87,7 +89,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
                 /*
                   在ScheduledFuture中有一个cancel可以停止定时任务。
                  */
-                ScheduledFuture<?> future = threadPoolTaskScheduler.schedule(new UserUnlock(user.getUsername()), new CronTrigger("* * 1/1 * * ?"));
+                ScheduledFuture<?> future = threadPoolTaskScheduler.schedule(new UserUnlock(user.getUsername()), new CronTrigger("0 0 1/1 * * ?"));
                 assert future != null;
                 WeiboApplication.map.put(user.getUsername(), future);
             }

@@ -23,12 +23,7 @@ public class LoginController {
     }
 
     @GetMapping("/login/401")
-    String error401(String msg, String username) {
-        if (!msg.equals("User account is locked")) {
-            WeiboUser user = userRepository.findByUsername(username);
-            user.setAccountNonLocked(false);
-            userRepository.save(user);
-        }
+    String error401() {
         return "401";
     }
 }
