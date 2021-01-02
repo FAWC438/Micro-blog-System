@@ -43,14 +43,17 @@ public class RegisterController {
             weiboUser = new WeiboUser();
             weiboUser.setUsername(username);
             weiboUser.setPassword(passwordEncoder.encode(password));
+            weiboUser.setAccountNonLocked(true);
+            WeiboRole weiboRole = new WeiboRole();
             if (username.equals("admin")) {
-                WeiboRole weiboRole = new WeiboRole();
                 weiboRole.setName("ROLE_ADMIN");
-                roleRepository.save(weiboRole);
-                List<WeiboRole> roles = new ArrayList<>();
-                roles.add(weiboRole);
-                weiboUser.setRoles(roles);
+            } else {
+                weiboRole.setName("ROLE_USER");
             }
+            roleRepository.save(weiboRole);
+            List<WeiboRole> roles = new ArrayList<>();
+            roles.add(weiboRole);
+            weiboUser.setRoles(roles);
             userRepository.save(weiboUser);
             redirectAttributes.addFlashAttribute("alertMsg", "注册成功！");
             return "redirect:/login";

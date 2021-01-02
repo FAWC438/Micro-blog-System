@@ -2,6 +2,7 @@ package bupt.weibo.Service;
 
 import bupt.weibo.entity.WeiboUser;
 import bupt.weibo.repository.UserRepository;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
+@Data
 public class CustomUserService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;

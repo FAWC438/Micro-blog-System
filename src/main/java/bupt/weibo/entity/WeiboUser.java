@@ -26,6 +26,7 @@ public class WeiboUser implements UserDetails {
     @NotEmpty(message = "姓名不能为空")
     private String username;
     private String password;
+    private boolean AccountNonLocked;
 
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<WeiboRole> roles;
@@ -42,16 +43,6 @@ public class WeiboUser implements UserDetails {
     }
 
     @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
@@ -63,7 +54,7 @@ public class WeiboUser implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return AccountNonLocked;
     }
 
     @Override

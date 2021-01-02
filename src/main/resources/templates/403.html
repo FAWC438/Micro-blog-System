@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">>
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex,nofollow">
+    <title>403 - 页面找不到了</title>
+    <link rel="stylesheet" href="/css/error.css"/>
+</head>
+<body>
+<div class="wrap">
+    <table>
+        <tr>
+            <td rowspan="5" style=""><img src="https://ws1.sinaimg.cn/large/a15b4afegy1fhsfdznep4j2020020web.jpg"
+                                          alt="又一个极简的错误页面"></td>
+            <td class="header">很抱歉！当前页面找不到了</td>
+        </tr>
+        <tr>
+            <td>原因：你没有权限访问该页面</td>
+        </tr>
+        <tr>
+            <td th:text="${param.msg}"></td>
+        </tr>
+        <tr>
+            <td>如果无法解决问题，你可以通过发送邮件至<a href="lingguohan@bipt.edu.cn">我们的邮箱</a>反馈</td>
+        </tr>
+        <tr>
+            <td class="check-info">或者，你也可以<a href="https://github.com/FAWC-bupt/WebFinal">访问项目Github仓库</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>  
