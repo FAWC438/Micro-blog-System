@@ -16,7 +16,7 @@
         <p class="user-name">wtl_bupt</p>
         <div class="info-detail">
             <div class="detail-num">
-                <p>212</p>
+                <p th:>212</p>
                 <p>45</p>
                 <p>1152</p>
             </div>
@@ -30,24 +30,90 @@
 </header>
 <div class="container">
     <div class="left-box">
-        <a href="myweibo.html">
+        <a href="/myweibo">
             <div class="item">
                 <img class="icon" src="/img/列表_1.png" alt="图片显示错误">
                 <span style="color: orange">我的微博</span>
             </div>
         </a>
-        <a href="fans.html">
+        <a href="/myfans">
             <div class="item">
                 <img class="icon" src="/img/关注_0.png" alt="图片显示错误">
                 <span>关注与粉丝</span>
             </div>
         </a>
-        <a href="myat.html">
+        <a href="/myat">
             <div class="item">
                 <img class="icon" src="/img/艾特_0.png" alt="图片显示错误">
                 <span>@与我相关</span>
             </div>
         </a>
+    </div>
+    <!-- 微博内容 -->
+    <div class="weibo-body-recycle-scroller">
+        <!-- TODO: 用thymeleaf实现循环，显示多个微博 -->
+
+        <div class="weibo-body-single" th:each="weibo:${weibos}">
+            <article class="weibo-body">
+                <div class="weibo-main">
+                    <!-- 用户头像、用户名、发送时间 -->
+                    <header class="weibo-info">
+                        <!-- 用户头像，点击跳转用户页面 -->
+                        <a href="" class="weibo-info-user-avatar">
+                            <div class="weibo-info-user-avatar-body">
+                                <img
+                                        src="/img/avatar.jpg"
+                                        alt="头像显示错误"
+                                        class="weibo-info-user-avatar-img"
+                                />
+                            </div>
+                        </a>
+                        <!-- 用户名，发送时间 -->
+                        <div class="weibo-info-text">
+                            <!-- 用户名 -->
+                            <!--                            <a href="#" class="weibo-info-user-name" th:text="${weibo.weiboUser.username}"></a>-->
+                            <a href="#" class="weibo-info-user-name">LGH</a>
+                            <!-- 发送时间 -->
+                            <p title="TODO: 实际发送时间" class="weibo-info-send-date">
+                                5分钟前
+                            </p>
+                        </div>
+                    </header>
+                    <!-- 微博内容 -->
+                    <div class="weibo-content">
+                        <!--                        <div class="weibo-content-text" th:text="${weibo.weiboText}">hello world</div>-->
+                        <div class="weibo-content-text">wtl</div>
+                        <div class="weibo-content-img">
+                            <!-- 可以多个图片 -->
+                            <div class="weibo-content-img-single">
+                                <img src="/img/test.jpg" alt="图片显示错误"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="weibo-content-footer">
+                    <div class="weibo-content-footer-body">
+                        <!-- 微博下方的评论按钮 -->
+                        <div class="weibo-content-footer-item">
+                            <div class="weibo-content-footer-icon-item" title="评论">
+                                <i class="comment-icon"></i>
+                            </div>
+                            <!--                            <span class="icon-num" th:text="${weibo.commentNum}"></span>-->
+                            <span class="icon-num">0</span>
+                        </div>
+                        <!-- 微博下方的点赞按钮 -->
+                        <div class="weibo-content-footer-item">
+                            <div class="weibo-content-footer-icon-item" title="点赞">
+                                <i class="like-icon"></i>
+                            </div>
+                            <!--                            <span class="icon-num" th:text="${weibo.likeNum}"></span>-->
+                            <span class="icon-num">4</span>
+                        </div>
+                    </div>
+                </footer>
+            </article>
+        </div>
+
     </div>
 </div>
 
