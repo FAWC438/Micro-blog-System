@@ -2,7 +2,6 @@ package bupt.weibo.Service;
 
 import bupt.weibo.repository.UserRepository;
 import bupt.weibo.util.MD5Util;
-import bupt.weibo.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,8 +17,13 @@ import java.util.UUID;
 @Service
 
 public class AsyncSendEmailService {
+    private UserRepository userRepository;
+
     @Autowired
-    UserRepository userRepository;
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Resource
     JavaMailSender mailSender;
     @Value("${spring.mail.username}")
@@ -46,7 +50,7 @@ public class AsyncSendEmailService {
             String resetPassHref = activeUserUrl + "?sid="
                     + digitalSignature + "&email=" + email;
 
-            String emailContent = mailActiveContent + resetPassHref;//MessageUtil.getMessage(mailActiveContent, resetPassHref);
+            String emailContent = mailActiveContent + resetPassHref;
             System.out.println(emailContent);
 
             MimeMessage mimeMessage = mailSender.createMimeMessage();

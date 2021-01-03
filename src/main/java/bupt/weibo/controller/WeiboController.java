@@ -3,18 +3,22 @@ package bupt.weibo.controller;
 import bupt.weibo.entity.Comment;
 import bupt.weibo.entity.Weibo;
 import bupt.weibo.repository.CommentRepository;
+import bupt.weibo.repository.UserRepository;
 import bupt.weibo.repository.WeiboRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -24,6 +28,12 @@ import java.util.List;
 public class WeiboController {
     private CommentRepository commentRepository;
     private WeiboRepository weiboRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Autowired
     public void setCommentRepository(CommentRepository commentRepository) {
@@ -36,8 +46,12 @@ public class WeiboController {
     }
 
     @PostMapping("/release")
-    public String releaseWeibo(String weiboText) {
+    public String releaseWeibo(String weiboText, HttpSession session) {
+        SecurityContextImpl securityContext = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
+        String name = ((UserDetails) securityContext.getAuthentication().getPrincipal()).getUsername();
+
         Weibo weibo = new Weibo();
+        weibo.setWeiboUser(userRepository.findByUsername(name));
         weibo.setWeiboText(weiboText);
         weibo.setReleaseTime(LocalDateTime.now());
         weiboRepository.save(weibo);
@@ -55,7 +69,7 @@ public class WeiboController {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(start, limit, sort);
         Page<Weibo> weibos;
-        if(0 == type)
+        if (0 == type)
             weibos = weiboRepository.findByOrderByReleaseTimeDesc(pageable);
         else if (1 == type)
             weibos = weiboRepository.findByOrderByCommentNumDesc(pageable);

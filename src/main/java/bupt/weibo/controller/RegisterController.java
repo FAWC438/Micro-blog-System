@@ -3,6 +3,7 @@ package bupt.weibo.controller;
 import bupt.weibo.Service.AsyncSendEmailService;
 import bupt.weibo.entity.WeiboRole;
 import bupt.weibo.entity.WeiboUser;
+import bupt.weibo.repository.CommentRepository;
 import bupt.weibo.repository.RoleRepository;
 import bupt.weibo.repository.UserRepository;
 import bupt.weibo.util.MD5Util;
@@ -24,14 +25,30 @@ import java.util.List;
 @RequestMapping("/")
 public class RegisterController {
 
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private AsyncSendEmailService asyncSendEmailService;
+    private AmqpTemplate rabbitTemplate;
+
     @Autowired
-    UserRepository userRepository;
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Autowired
-    RoleRepository roleRepository;
+    public void setRoleRepository(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
+
     @Autowired
-    AsyncSendEmailService asyncSendEmailService;
+    public void setAsyncSendEmailService(AsyncSendEmailService asyncSendEmailService) {
+        this.asyncSendEmailService = asyncSendEmailService;
+    }
+
     @Autowired
-    AmqpTemplate rabbitTemplate;
+    public void setAmqpTemplate(AmqpTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     @Resource
     private JavaMailSender mailSender;

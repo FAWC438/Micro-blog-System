@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>我的微博</title>
@@ -71,18 +73,19 @@
                         <!-- 用户名，发送时间 -->
                         <div class="weibo-info-text">
                             <!-- 用户名 -->
-                            <!--                            <a href="#" class="weibo-info-user-name" th:text="${weibo.weiboUser.username}"></a>-->
-                            <a href="#" class="weibo-info-user-name">LGH</a>
+                            <a href="#" class="weibo-info-user-name"
+                               th:text="${weibo.getWeiboUser().getUsername()}"></a>
+                            <!--                            <a href="#" class="weibo-info-user-name">LGH</a>-->
                             <!-- 发送时间 -->
-                            <p title="TODO: 实际发送时间" class="weibo-info-send-date">
+                            <p th:text="${weibo.getReleaseTime()}" class="weibo-info-send-date">
                                 5分钟前
                             </p>
                         </div>
                     </header>
                     <!-- 微博内容 -->
                     <div class="weibo-content">
-                        <!--                        <div class="weibo-content-text" th:text="${weibo.weiboText}">hello world</div>-->
-                        <div class="weibo-content-text">wtl</div>
+                        <div class="weibo-content-text" th:text="${weibo.weiboText}">hello world</div>
+                        <!--                        <div class="weibo-content-text">wtl</div>-->
                         <div class="weibo-content-img">
                             <!-- 可以多个图片 -->
                             <div class="weibo-content-img-single">
@@ -98,22 +101,21 @@
                             <div class="weibo-content-footer-icon-item" title="评论">
                                 <i class="comment-icon"></i>
                             </div>
-                            <!--                            <span class="icon-num" th:text="${weibo.commentNum}"></span>-->
-                            <span class="icon-num">0</span>
+                            <span class="icon-num" th:text="${weibo.commentNum}"></span>
+                            <!--                            <span class="icon-num">0</span>-->
                         </div>
                         <!-- 微博下方的点赞按钮 -->
                         <div class="weibo-content-footer-item">
                             <div class="weibo-content-footer-icon-item" title="点赞">
                                 <i class="like-icon"></i>
                             </div>
-                            <!--                            <span class="icon-num" th:text="${weibo.likeNum}"></span>-->
-                            <span class="icon-num">4</span>
+                            <span class="icon-num" th:text="${weibo.likeNum}"></span>
+                            <!--                            <span class="icon-num">4</span>-->
                         </div>
                     </div>
                 </footer>
             </article>
         </div>
-
     </div>
 </div>
 

@@ -29,20 +29,17 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LoginFailureHandler implements AuthenticationFailureHandler {
 
-    // 不能使用平时的自动注入
-
     private static UserRepository userRepository;
+    private ThreadPoolTaskScheduler threadPoolTaskScheduler;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         LoginFailureHandler.userRepository = userRepository;
     }
 
-    private static ThreadPoolTaskScheduler threadPoolTaskScheduler;
-
     @Autowired
     public void setThreadPoolTaskScheduler(ThreadPoolTaskScheduler threadPoolTaskScheduler) {
-        LoginFailureHandler.threadPoolTaskScheduler = threadPoolTaskScheduler;
+        this.threadPoolTaskScheduler = threadPoolTaskScheduler;
     }
 
 //    @Autowired

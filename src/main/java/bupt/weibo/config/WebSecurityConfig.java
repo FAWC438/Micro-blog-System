@@ -2,6 +2,7 @@ package bupt.weibo.config;
 
 import bupt.weibo.Service.CustomUserService;
 import bupt.weibo.handler.LoginFailureHandler;
+import bupt.weibo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,8 +15,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private CustomUserService customUserService;
+
     @Autowired
-    CustomUserService customUserService;
+    public void setCustomUserService(CustomUserService customUserService) {
+        this.customUserService = customUserService;
+    }
 
     @Override
     public void configure(WebSecurity web) {

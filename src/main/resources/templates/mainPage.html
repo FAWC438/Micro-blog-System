@@ -55,15 +55,20 @@
     </div>
     <!-- 排序面板 -->
     <div class="sort-panel">
-        <a th:href="@{/mainPage(type=0)}"><button id="publish-date" class="sort-panel-button-cur" type="button">
+        <button id="publish-date" class="sort-panel-button-cur" type="button"
+                th:onclick="window.location.href='/mainPage?type=0'">
             <span class="button-content">发布时间</span>
-        </button></a>
-        <a th:href="@{/mainPage(type=1)}"><button id="comment-number" class="sort-panel-button" type="button">
+        </button>
+
+        <button id="comment-number" class="sort-panel-button" type="button"
+                th:onclick="window.location.href='/mainPage?type=1'">
             <span class="button-content">评论数</span>
-        </button></a>
-        <a th:href="@{/mainPage(type=2)}"><button id="like-number" class="sort-panel-button" type="button">
+        </button>
+
+        <button id="like-number" class="sort-panel-button" type="button"
+                th:onclick="window.location.href='/mainPage?type=2'">
             <span class="button-content">点赞数</span>
-        </button></a>
+        </button>
     </div>
 
     <!-- 微博内容 -->
@@ -76,7 +81,7 @@
                     <!-- 用户头像、用户名、发送时间 -->
                     <header class="weibo-info">
                         <!-- 用户头像，点击跳转用户页面 -->
-                        <a href="" class="weibo-info-user-avatar">
+                        <a th:href="@{/myweibo}" class="weibo-info-user-avatar">
                             <div class="weibo-info-user-avatar-body">
                                 <img
                                         src="/img/avatar.jpg"
@@ -88,18 +93,19 @@
                         <!-- 用户名，发送时间 -->
                         <div class="weibo-info-text">
                             <!-- 用户名 -->
-<!--                            <a href="#" class="weibo-info-user-name" th:text="${weibo.weiboUser.username}"></a>-->
-                            <a href="#" class="weibo-info-user-name">LGH</a>
+                            <a href="#" class="weibo-info-user-name"
+                               th:text="${weibo.getWeiboUser().getUsername()}"></a>
+                            <!--                            <a href="#" class="weibo-info-user-name">LGH</a>-->
                             <!-- 发送时间 -->
-                            <p title="TODO: 实际发送时间" class="weibo-info-send-date">
+                            <p th:text="${weibo.getReleaseTime()}" class="weibo-info-send-date">
                                 5分钟前
                             </p>
                         </div>
                     </header>
                     <!-- 微博内容 -->
                     <div class="weibo-content">
-<!--                        <div class="weibo-content-text" th:text="${weibo.weiboText}">hello world</div>-->
-                        <div class="weibo-content-text">wtl</div>
+                        <div class="weibo-content-text" th:text="${weibo.weiboText}">hello world</div>
+                        <!--                        <div class="weibo-content-text">wtl</div>-->
                         <div class="weibo-content-img">
                             <!-- 可以多个图片 -->
                             <div class="weibo-content-img-single">
@@ -115,16 +121,16 @@
                             <div class="weibo-content-footer-icon-item" title="评论">
                                 <i class="comment-icon"></i>
                             </div>
-<!--                            <span class="icon-num" th:text="${weibo.commentNum}"></span>-->
-                            <span class="icon-num">0</span>
+                            <span class="icon-num" th:text="${weibo.commentNum}"></span>
+                            <!--                            <span class="icon-num">0</span>-->
                         </div>
                         <!-- 微博下方的点赞按钮 -->
                         <div class="weibo-content-footer-item">
                             <div class="weibo-content-footer-icon-item" title="点赞">
                                 <i class="like-icon"></i>
                             </div>
-<!--                            <span class="icon-num" th:text="${weibo.likeNum}"></span>-->
-                            <span class="icon-num">4</span>
+                            <span class="icon-num" th:text="${weibo.likeNum}"></span>
+                            <!--                            <span class="icon-num">4</span>-->
                         </div>
                     </div>
                 </footer>
@@ -140,9 +146,11 @@
             需要通过后端改写
           -->
             <li><a class="page-inactive" th:href="@{/mainPage(start=0)}">«</a></li>
-<!--            <li><a class="page-inactive" th:if="${not weibos.isFirst()}" th:href="@{/mainPage(start=${weibos.number-1})}">&gt;</a></li>-->
-<!--            <li><a class="page-inactive" th:if="${not weibos.isFirst()}" th:href="@{/mainPage(start=${weibos.number+1})}">&lt;</a></li>-->
-            <li><a class="page-inactive" href="#">»</a></li
+            <li><a class="page-inactive" th:if="${not weibos.isFirst()}"
+                   th:href="@{/mainPage(start=${weibos.getNumber()-1})}">[上一页]</a></li>
+            <li><a class="page-inactive" th:if="${not weibos.isLast()}"
+                   th:href="@{/mainPage(start=${weibos.getNumber()+1})}">[下一页]</a></li>
+            <li><a class="page-inactive" href="#">»</a></li>
         </ul>
     </div>
 </div>

@@ -38,9 +38,6 @@ public class WeiboUser implements UserDetails {
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<WeiboRole> roles;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
     @OneToMany
     private List<WeiboUser> weiboUsers = new ArrayList<>();
 
