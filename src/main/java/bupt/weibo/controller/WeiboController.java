@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -107,7 +108,10 @@ public class WeiboController {
 
         weibo.setWeiboUser(user);
         weibo.setWeiboText(weiboText);
-        weibo.setReleaseTime(LocalDateTime.now());
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        weibo.setReleaseTime((String) df.format(new Date()));
         weiboRepository.save(weibo);
         System.out.println("---------release-----------");
 //        return "redirect:/mainPage";

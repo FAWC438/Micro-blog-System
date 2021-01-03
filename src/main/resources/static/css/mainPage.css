@@ -1,8 +1,42 @@
 /* fill:#FFA500 */
 
 body {
-    background-color: #f0f8ff;
+    /*background-color: #f0f8ff;*/
+    background: url("../img/bg.jpg");
     text-align: center;
+}
+
+.welcome-title {
+    font-family: "Microsoft YaHei", serif;
+    font-weight: bolder;
+    font-size: large;
+    padding-left: 200px;
+}
+
+.account-info-btn {
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 6px 20px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+    border-radius: 10px;
+    /*background-color: white;*/
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+    color: black;
+    border: 2px solid #ff8200;
+    outline: none;
+}
+
+.account-info-btn:hover {
+    background-color: #ff8200;
+    color: white;
 }
 
 div.home-warp {
@@ -18,9 +52,25 @@ div.home-warp {
     max-width: 800px;
 }
 
+.account-info {
+    /*background-color: #fff;*/
+    border-radius: 4px;
+    /*border-color: #f2f2f2;*/
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 8px;
+    padding: 20px 20px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
 /* 发送面板 */
 div.send-panel {
-    background-color: #fff;
+    /*background-color: #fff;*/
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
     border-radius: 4px;
     border-color: #f2f2f2;
     margin-bottom: 8px;
@@ -32,8 +82,10 @@ div.input-body {
     line-height: 0;
     border-radius: 8px;
     padding: 6px 11px;
-    background: #f0f1f4;
-    border: 1px solid #f0f1f4;
+    /*background: #f0f1f4;*/
+    background-color: rgba(255, 255, 255, 0);
+    /*border: 1px solid #f0f1f4;*/
+    border: none;
     position: relative;
 }
 
@@ -45,13 +97,14 @@ textarea.input-area {
     resize: none;
     line-height: 24px;
     font-size: 14px;
-    color: #333;
+    color: -moz-default-background-color;
     width: 100%;
     height: 48px;
     padding: 0;
-    background: transparent;
     border: none;
-    box-shadow: none;
+    /*background: transparent;*/
+    /*box-shadow: none;*/
+    background-color: rgba(255, 255, 255, 0);
     outline: none;
 }
 
@@ -155,6 +208,11 @@ button.submit-button {
     border-radius: 2.25rem;
     background: #ff8200;
     color: #fff;
+}
+
+button.submit-button:hover {
+    background: #fff;
+    color: #ff8200;
 }
 
 button.submit-button:disabled {
@@ -264,7 +322,9 @@ div.weibo-body-single {
 }
 
 article.weibo-body {
-    background-color: #fff;
+    /*background-color: #fff;*/
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.4);
     box-sizing: border-box;
     position: relative;
     -webkit-tap-highlight-color: transparent;
@@ -346,7 +406,7 @@ p.weibo-info-send-date {
     cursor: pointer;
     margin-right: 5px;
     min-width: 0;
-    color: #939393;
+    color: #708090;
     text-decoration: none;
 }
 

@@ -15,12 +15,29 @@
             rel="stylesheet"
     />
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
     <script src="/js/mainPage.js"></script>
 </head>
 
 <body>
 
+<script th:inline="javascript">
+    const single = [[${alertMsg}]];
+    if (single !== null) {
+        alert(single)
+    }
+</script>
+
 <div id="home-warp" class="home-warp">
+    <div class="account-info">
+        <button name="login-btn" id="login-btn" class="account-info-btn" sec:authorize="!isAuthenticated()">登录</button>
+        <button name="logout-btn" id="logout-btn" class="account-info-btn" sec:authorize="isAuthenticated()">注销</button>
+        <button name="reset-password-btn" id="reset-password-btn" class="account-info-btn"
+                sec:authorize="isAuthenticated()">重置密码
+        </button>
+        <p class="welcome-title" sec:authorize="isAuthenticated()">欢迎，<span sec:authentication="name"></span></p>
+        <p class="welcome-title" sec:authorize="!isAuthenticated()">欢迎，游客</p>
+    </div>
     <!-- 发送微博面板 -->
     <div class="send-panel">
         <form id="send-form" action="/release" method="post" th:action="@{/release}" enctype="multipart/form-data">
@@ -176,11 +193,40 @@
     </div>
 </div>
 <script>
-    const upload = document.getElementById("img-icon");
-    upload.onclick = function () {
-        console.log("click!!!")
+    $("#img-icon").click(function () {
+        console.log("click!!!");
         document.getElementById("upload-img").click();
-    }
+    });
+    $("#login-btn").click(function () {
+        window.location.href = '/login'
+    });
+
+    $("#logout-btn").click(function () {
+        $.ajax({
+            url: "/logout",
+            type: "get",
+            success: function () {
+                alert("注销成功！")
+                location.reload();
+            },
+            error: function () {
+                alert("ajax错误！")
+            }
+        })
+    });
+
+    $("#reset-password-btn").click(function () {
+        $.ajax({
+            url: "/resetMailSend",
+            type: "get",
+            success: function (data) {
+                alert(data)
+            },
+            error: function () {
+                alert("ajax错误！")
+            }
+        })
+    });
 </script>
 </body>
 </html>

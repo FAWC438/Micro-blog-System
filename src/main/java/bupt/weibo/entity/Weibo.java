@@ -35,5 +35,5 @@ public class Weibo {
     private List<Picture> pictures = new ArrayList<>();
 
     //    @Column(nullable = false)
-    private LocalDateTime releaseTime;
+    private String releaseTime;
 }

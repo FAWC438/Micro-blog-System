@@ -31,7 +31,6 @@ public class AsyncSendEmailService {
 
 
     @Async   //这是一个异步方法
-
     public void sendVerifyEmail(String email, String action) {
         try {
             Thread.sleep(2000);
@@ -39,9 +38,13 @@ public class AsyncSendEmailService {
             Timestamp outDate = new Timestamp(System.currentTimeMillis() + 30 * 60 * 1000);// 30分钟后过期
             long date = outDate.getTime() / 1000 * 1000;
             userRepository.setEmailOutDateAndValidCode(outDate + "", secretKey, email);
-
-            String mailActiveContent = "请点击以下链接激活你的账号\n";
+            String mailActiveContent = "请点击以下链接激活你的账号，30分钟内有效\n";
             String mailActiveSubject = "Weibo账号邮箱注册验证";
+            if (action.equals("resetUserPassword")) {
+                mailActiveContent = "请点击以下链接重置你的账号密码，30分钟内有效\n";
+                mailActiveSubject = "Weibo账号密码重置";
+            }
+
             String key = email + "$" + date + "$" + secretKey;
 
             String digitalSignature = MD5Util.encode(key);// 数字签名
