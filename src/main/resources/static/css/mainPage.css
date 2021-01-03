@@ -84,6 +84,7 @@ div.icon-item {
     height: 34px;
     cursor: pointer;
     line-height: 0;
+    overflow: auto;
 }
 
 div.icon-item::before {

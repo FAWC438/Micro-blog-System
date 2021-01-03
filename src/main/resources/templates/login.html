@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" dir="ltr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="utf-8"/>
     <title>登录</title>
@@ -43,10 +44,25 @@
             />
         </label>
         <input type="submit" value="登录" class="signup-btn"/>
+        <input type="button" value="注册" id="register" name="register" class="signup-btn" style="margin-top: 20px;"/>
+        <input type="button" value="随便看看？点此跳转主页" id="has-login" name="has-login" class="signup-btn"
+               style="background-color: tomato;margin-top: 20px;"/>
         <a href="https://github.com/FAWC-bupt/WebFinal">Star us on Github</a>
         <!--        <h2>User for test: admin</h2>-->
         <!--        <h2>Password for test: 123456</h2>-->
     </form>
 </div>
+<script>
+    const reg = document.getElementById("register");
+    const hl = document.getElementById("has-login");
+    reg.onclick = function () {
+        console.log("click!!!");
+        window.location.href = '/register'
+    };
+    hl.onclick = function () {
+        console.log("click!!!");
+        window.location.href = '/mainPage'
+    }
+</script>
 </body>
 </html>

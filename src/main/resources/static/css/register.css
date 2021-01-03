@@ -60,6 +60,23 @@ body {
     transform: scale(0.96);
 }
 
+.upload-btn {
+    font-family: "微软雅黑", sans-serif;
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    background: rgba(123, 123, 123, 0.8);
+    color: black;
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.8s;
+}
+
+.upload-btn:hover {
+    transform: scale(0.96);
+}
+
 .signup-form a {
     text-decoration: none;
     color: black;

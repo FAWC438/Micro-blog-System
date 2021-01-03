@@ -34,6 +34,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/resources/")
                 .addResourceLocations("classpath:/static/")
                 .addResourceLocations("classpath:/public/");
+        registry.addResourceHandler("/uploadPic/**").addResourceLocations("file:D:\\code\\WebFinal\\src\\main\\resources\\static\\picData\\");
         WebMvcConfigurer.super.addResourceHandlers(registry);
     }
 

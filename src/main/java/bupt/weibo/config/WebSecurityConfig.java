@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         //不拦截静态资源
-        web.ignoring().antMatchers("/js/**", "/css/**", "/img/**");
+        web.ignoring().antMatchers("/js/**", "/css/**", "/img/**", "/picData/**", "/uploadPic/**");
     }
 
     /***
@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login/**", "/error/**", "/register/**", "/activeUserEmail", "/static/**", "/h2-console/**").permitAll()
+                .antMatchers("/login/**", "/error/**", "/register/**", "/mainPage", "/activeUserEmail", "/static/**", "/h2-console/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 // 配置被拦截时的处理

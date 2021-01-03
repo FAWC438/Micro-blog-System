@@ -34,6 +34,7 @@ public class WeiboUser implements UserDetails {
     private String validCode;
     private boolean AccountNonLocked;
     private boolean active;
+    private String avatarPath;
 
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<WeiboRole> roles;

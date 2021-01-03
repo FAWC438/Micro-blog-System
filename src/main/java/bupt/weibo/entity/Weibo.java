@@ -31,6 +31,9 @@ public class Weibo {
     @OneToMany()
     private List<Comment> comments = new ArrayList<>();
 
-//    @Column(nullable = false)
+    @OneToMany()
+    private List<Picture> pictures = new ArrayList<>();
+
+    //    @Column(nullable = false)
     private LocalDateTime releaseTime;
 }

@@ -32,7 +32,7 @@ public class AsyncSendEmailService {
 
     @Async   //这是一个异步方法
 
-    public void sendVerifyEmail(String email) {
+    public void sendVerifyEmail(String email, String action) {
         try {
             Thread.sleep(2000);
             String secretKey = UUID.randomUUID().toString(); // 密钥
@@ -45,7 +45,7 @@ public class AsyncSendEmailService {
             String key = email + "$" + date + "$" + secretKey;
 
             String digitalSignature = MD5Util.encode(key);// 数字签名
-            String activeUserUrl = "http://localhost:8080/activeUserEmail";
+            String activeUserUrl = "http://localhost:8080/" + action;
 
             String resetPassHref = activeUserUrl + "?sid="
                     + digitalSignature + "&email=" + email;

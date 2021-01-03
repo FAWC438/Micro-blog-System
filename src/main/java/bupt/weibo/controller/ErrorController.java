@@ -28,4 +28,9 @@ public class ErrorController {
     String error401() {
         return "401";
     }
+
+    @GetMapping("/400")
+    String error400() {
+        return "400";
+    }
 }

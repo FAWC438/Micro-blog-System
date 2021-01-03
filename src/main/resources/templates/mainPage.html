@@ -14,27 +14,37 @@
             href="https://fonts.font.im/css?family=Do+Hyeon"
             rel="stylesheet"
     />
-    <script src="/js/mainPage.js"></script>
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/mainPage.js"></script>
 </head>
 
 <body>
+
 <div id="home-warp" class="home-warp">
     <!-- 发送微博面板 -->
     <div class="send-panel">
-        <form id="send-form" action="/release" method="post" th:action="@{/release}">
+        <form id="send-form" action="/release" method="post" th:action="@{/release}" enctype="multipart/form-data">
             <!-- 输入区域 -->
             <div class="input-body">
             <textarea
-                    placeholder="有什么新鲜事想分享给大家？"
+                    sec:authorize="isAuthenticated()"
+                    th:placeholder="${errorMsg}?${errorMsg}:有什么新鲜事想分享给大家"
                     class="input-area"
                     style="width: 100%; height: 48px"
                     name="weiboText"
             ></textarea>
+                <textarea
+                        sec:authorize="!isAuthenticated()"
+                        placeholder="有什么新鲜事想分享给大家"
+                        class="input-area"
+                        style="width: 100%; height: 48px"
+                        name="weiboText"
+                        disabled
+                ></textarea>
             </div>
 
             <!-- 下方按钮 -->
-            <div class="buttons-flex">
+            <div class="buttons-flex" sec:authorize="isAuthenticated()">
                 <div class="icon-items">
                     <div class="icon-item" title="@其他人">
                         <!-- i标签通过::before插入图片，详见
@@ -43,7 +53,8 @@
                         <i class="at-icon"></i>
                     </div>
                     <div class="icon-item" title="发送图片">
-                        <i class="img-icon"></i>
+                        <i id="img-icon" class="img-icon"></i>
+                        <input type="file" id="upload-img" name="upload-img" style="display:none">
                     </div>
                 </div>
                 <!-- 输入框有内容才能enabled -->
@@ -81,10 +92,19 @@
                     <!-- 用户头像、用户名、发送时间 -->
                     <header class="weibo-info">
                         <!-- 用户头像，点击跳转用户页面 -->
-                        <a th:href="@{/myweibo}" class="weibo-info-user-avatar">
+                        <a th:href="@{/myweibo}" class="weibo-info-user-avatar" sec:authorize="isAuthenticated()">
                             <div class="weibo-info-user-avatar-body">
                                 <img
-                                        src="/img/avatar.jpg"
+                                        th:src="${weibo.getWeiboUser().getAvatarPath()}"
+                                        alt="头像显示错误"
+                                        class="weibo-info-user-avatar-img"
+                                />
+                            </div>
+                        </a>
+                        <a href="#" class="weibo-info-user-avatar" sec:authorize="!isAuthenticated()">
+                            <div class="weibo-info-user-avatar-body">
+                                <img
+                                        th:src="${weibo.getWeiboUser().getAvatarPath()}"
                                         alt="头像显示错误"
                                         class="weibo-info-user-avatar-img"
                                 />
@@ -106,10 +126,11 @@
                     <div class="weibo-content">
                         <div class="weibo-content-text" th:text="${weibo.weiboText}">hello world</div>
                         <!--                        <div class="weibo-content-text">wtl</div>-->
-                        <div class="weibo-content-img">
+                        <div class="weibo-content-img" th:each="pic:${weibo.getPictures()}">
                             <!-- 可以多个图片 -->
                             <div class="weibo-content-img-single">
-                                <img src="/img/test.jpg" alt="图片显示错误"/>
+                                <!--                                <img src="/img/test.jpg" alt="图片显示错误"/>-->
+                                <img th:src="${pic.getPicturePath()}" alt="图片显示错误"/>
                             </div>
                         </div>
                     </div>
@@ -154,5 +175,12 @@
         </ul>
     </div>
 </div>
+<script>
+    const upload = document.getElementById("img-icon");
+    upload.onclick = function () {
+        console.log("click!!!")
+        document.getElementById("upload-img").click();
+    }
+</script>
 </body>
 </html>

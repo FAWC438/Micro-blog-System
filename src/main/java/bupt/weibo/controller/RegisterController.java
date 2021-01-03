@@ -1,12 +1,15 @@
 package bupt.weibo.controller;
 
 import bupt.weibo.Service.AsyncSendEmailService;
+import bupt.weibo.entity.Picture;
 import bupt.weibo.entity.WeiboRole;
 import bupt.weibo.entity.WeiboUser;
 import bupt.weibo.repository.CommentRepository;
+import bupt.weibo.repository.PictureRepository;
 import bupt.weibo.repository.RoleRepository;
 import bupt.weibo.repository.UserRepository;
 import bupt.weibo.util.MD5Util;
+import com.github.afkbrb.avatar.Avatar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,12 +17,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/")
@@ -29,6 +39,7 @@ public class RegisterController {
     private RoleRepository roleRepository;
     private AsyncSendEmailService asyncSendEmailService;
     private AmqpTemplate rabbitTemplate;
+    private PictureRepository pictureRepository;
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -48,6 +59,11 @@ public class RegisterController {
     @Autowired
     public void setAmqpTemplate(AmqpTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
+    }
+
+    @Autowired
+    public void setPictureRepository(PictureRepository pictureRepository) {
+        this.pictureRepository = pictureRepository;
     }
 
     @Resource
@@ -88,8 +104,12 @@ public class RegisterController {
 //    }
 
     @PostMapping("/register")
-    String registerByEmail(Model model, WeiboUser user, RedirectAttributes redirectAttributes) {
+    String registerByEmail(Model model, WeiboUser user, HttpServletRequest request) {
         try {
+
+//            MultipartHttpServletRequest params = ((MultipartHttpServletRequest) request);
+//            List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("upload-input");
+            Avatar avatar = new Avatar();
             System.out.println(user.getEmail());
             WeiboUser registerUser = userRepository.findByEmail(user.getEmail());
             if (null != registerUser) {
@@ -101,6 +121,53 @@ public class RegisterController {
                 model.addAttribute("msg", "用户名已存在！");
                 return "register";
             }
+
+
+            avatar.saveAsPNG("D:\\code\\WebFinal\\src\\main\\resources\\static\\picData\\avatar\\" + user.getUsername() + ".png");
+            user.setAvatarPath("/uploadPic/avatar/" + user.getUsername() + ".png");
+
+//            if (!files.isEmpty()) {
+//                for (MultipartFile file : files) {
+//                    String fileName = file.getOriginalFilename();
+//                    String type = fileName.indexOf(".") != -1 ? fileName.substring(fileName.lastIndexOf(".")) : null;
+//                    if (!("PNG".equalsIgnoreCase(type) || "JPG".equalsIgnoreCase(type))) {
+//                        model.addAttribute("msg", "头像图片格式错误");
+//                        return "register";
+//                    }
+//                    fileName = UUID.randomUUID() + type;
+//                    String filePath = "D:\\code\\WebFinal\\src\\main\\resources\\static\\picData\\avatar\\" + fileName;
+//                    System.out.println("File Path:" + filePath);
+//                    if (!file.isEmpty()) {
+//                        try {
+//                            BufferedImage bi = ImageIO.read(file.getInputStream());
+//                            if (bi.getWidth() < 300 || bi.getHeight() < 300) {
+//                                model.addAttribute("msg", "头像图片应大于300*300");
+//                                return "register";
+//                            } else {
+//                                file.transferTo(new File(filePath));
+//                                Picture newPic = new Picture();
+//                                newPic.setPicturePath("/uploadPic/avatar/" + fileName);
+//                                System.out.println(fileName);
+//                                newPic.setWeiboUser(user);
+//                                user.setAvatar(newPic);
+//                                pictureRepository.save(newPic);
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                            return "redirect:/error/400";
+//                        }
+//                    } else {
+//                        return "redirect:/error/400";
+//                    }
+//                }
+//            } else {
+//                Picture newPic = new Picture();
+//                newPic.setPicturePath("/uploadPic/avatar/default.jpg");
+//                System.out.println("default.jpg");
+//                newPic.setWeiboUser(user);
+//                user.setAvatar(newPic);
+//                pictureRepository.save(newPic);
+//            }
 
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
@@ -119,7 +186,7 @@ public class RegisterController {
             userRepository.save(user);
 
             rabbitTemplate.convertAndSend("reg_email", user.getEmail());
-            asyncSendEmailService.sendVerifyEmail(user.getEmail());
+            asyncSendEmailService.sendVerifyEmail(user.getEmail(), "activeUserEmail");
             //send email 已经异步执行,下面代码注释掉
         } catch (Exception e) {
             //logger.error("create user failed, ", e);
@@ -164,4 +231,40 @@ public class RegisterController {
         return "register";
     }
 
+    @GetMapping("/resetUserPassword")
+    public String resetUserPassword(Model model, String email, String sid) {
+        try {
+            WeiboUser user = userRepository.findByEmail(email);
+            Timestamp outDate = Timestamp.valueOf(user.getEmailOutDate());
+            if (outDate.getTime() <= System.currentTimeMillis()) { //表示已经过期
+                model.addAttribute("states", "签名过期"); // 重新发送邮件？
+                return "resetUserPassword";
+//                System.out.print("过期");
+            }
+            String key = user.getEmail() + "$" + outDate.getTime() / 1000 * 1000 + "$" + user.getValidCode();//数字签名
+            String digitalSignature = MD5Util.encode(key);
+            if (digitalSignature.equals(sid)) {
+                //return result(ExceptionMsg.LinkOutdated);
+                model.addAttribute("states", "认证成功");
+                model.addAttribute("email", email);
+            } else {
+                model.addAttribute("states", "签名错误");
+            }
+//            userRepository.
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/error/401";
+        }
+        return "resetUserPassword";
+    }
+
+    @PostMapping("/resetUserPassword")
+    public String judgeNewPassword(String newPassword, String email, RedirectAttributes redirectAttributes) {
+        WeiboUser user = userRepository.findByEmail(email);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(newPassword));
+        userRepository.save(user);
+        redirectAttributes.addFlashAttribute("alertMsg", "密码重置成功！");
+        return "redirect:/login";
+    }
 }

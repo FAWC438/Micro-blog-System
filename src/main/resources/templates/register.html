@@ -11,7 +11,7 @@
 <body>
 
 <div class="signup-form">
-    <form th:action="@{/register}" name="signup" id="signup" method="POST">
+    <form th:action="@{/register}" name="signup" id="signup" method="POST" enctype="multipart/form-data">
         <h1 th:text="${msg}?${msg}:注册">
             注册
         </h1>
@@ -45,9 +45,24 @@
                     required="required"
             />
         </label>
+        <!--        <button id="upload-btn" name="upload-btn" class="upload-btn">上传头像</button>-->
+        <!--        <input type="file" value="上传头像" id="upload-input" name="upload-input" style="display:none"/>-->
         <input type="submit" value="注册" class="signup-btn"/>
+        <input type="button" value="登录" id="login" name="login" class="signup-btn" style="margin-top: 20px;"/>
         <a href="https://github.com/FAWC-bupt/WebFinal">Star us on Github</a>
     </form>
 </div>
+<script>
+    // const upload = document.getElementById("upload-btn");
+    const login = document.getElementById("login");
+    // upload.onclick = function () {
+    //     console.log("click!!!")
+    //     document.getElementById("upload-input").click();
+    // }
+    login.onclick = function () {
+        console.log("click!!!")
+        window.location.href = '/login'
+    }
+</script>
 </body>
 </html>
