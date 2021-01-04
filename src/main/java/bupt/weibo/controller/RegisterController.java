@@ -129,49 +129,6 @@ public class RegisterController {
             avatar.saveAsPNG("D:\\code\\WebFinal\\src\\main\\resources\\static\\picData\\avatar\\" + user.getUsername() + ".png");
             user.setAvatarPath("/uploadPic/avatar/" + user.getUsername() + ".png");
 
-//            if (!files.isEmpty()) {
-//                for (MultipartFile file : files) {
-//                    String fileName = file.getOriginalFilename();
-//                    String type = fileName.indexOf(".") != -1 ? fileName.substring(fileName.lastIndexOf(".")) : null;
-//                    if (!("PNG".equalsIgnoreCase(type) || "JPG".equalsIgnoreCase(type))) {
-//                        model.addAttribute("msg", "头像图片格式错误");
-//                        return "register";
-//                    }
-//                    fileName = UUID.randomUUID() + type;
-//                    String filePath = "D:\\code\\WebFinal\\src\\main\\resources\\static\\picData\\avatar\\" + fileName;
-//                    System.out.println("File Path:" + filePath);
-//                    if (!file.isEmpty()) {
-//                        try {
-//                            BufferedImage bi = ImageIO.read(file.getInputStream());
-//                            if (bi.getWidth() < 300 || bi.getHeight() < 300) {
-//                                model.addAttribute("msg", "头像图片应大于300*300");
-//                                return "register";
-//                            } else {
-//                                file.transferTo(new File(filePath));
-//                                Picture newPic = new Picture();
-//                                newPic.setPicturePath("/uploadPic/avatar/" + fileName);
-//                                System.out.println(fileName);
-//                                newPic.setWeiboUser(user);
-//                                user.setAvatar(newPic);
-//                                pictureRepository.save(newPic);
-//                            }
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                            return "redirect:/error/400";
-//                        }
-//                    } else {
-//                        return "redirect:/error/400";
-//                    }
-//                }
-//            } else {
-//                Picture newPic = new Picture();
-//                newPic.setPicturePath("/uploadPic/avatar/default.jpg");
-//                System.out.println("default.jpg");
-//                newPic.setWeiboUser(user);
-//                user.setAvatar(newPic);
-//                pictureRepository.save(newPic);
-//            }
-
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
             user.setAccountNonLocked(true);

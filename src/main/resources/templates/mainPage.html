@@ -35,29 +35,33 @@
         <button name="reset-password-btn" id="reset-password-btn" class="account-info-btn"
                 sec:authorize="isAuthenticated()">重置密码
         </button>
-        <p class="welcome-title" sec:authorize="isAuthenticated()">欢迎，<span sec:authentication="name"></span></p>
+        <p id="welcome-title" class="welcome-title" sec:authorize="isAuthenticated()">欢迎，<span id="login-userName"
+                                                                                               sec:authentication="name"></span>
+        </p>
         <p class="welcome-title" sec:authorize="!isAuthenticated()">欢迎，游客</p>
     </div>
     <!-- 发送微博面板 -->
     <div class="send-panel">
-        <form id="send-form" action="/release" method="post" th:action="@{/release}" enctype="multipart/form-data">
+        <form id="send-form" action="/release" method="post" th:action="@{/release}" enctype="multipart/form-data"
+              style="display: flex;flex-direction: column;">
             <!-- 输入区域 -->
             <div class="input-body">
-            <textarea
-                    sec:authorize="isAuthenticated()"
-                    th:placeholder="${errorMsg}?${errorMsg}:有什么新鲜事想分享给大家"
-                    class="input-area"
-                    style="width: 100%; height: 48px"
-                    name="weiboText"
-            ></textarea>
-                <textarea
-                        sec:authorize="!isAuthenticated()"
-                        placeholder="有什么新鲜事想分享给大家"
+                <input type="hidden" id="at-targets" name="at-targets" value="">
+                <div
+                        sec:authorize="isAuthenticated()"
+                        contenteditable="true"
+                        th:placeholder="${errorMsg}?${errorMsg}:有什么新鲜事想分享给大家"
                         class="input-area"
-                        style="width: 100%; height: 48px"
-                        name="weiboText"
-                        disabled
-                ></textarea>
+                        id="weiboText-div"
+                >
+                </div>
+                <textarea hidden name="weiboText" id="weiboText"></textarea>
+                <!--                <div-->
+                <!--                        sec:authorize="!isAuthenticated()"-->
+                <!--                        contenteditable="true"-->
+                <!--                        class="input-area"-->
+                <!--                        style="background-color: rgba(255, 255, 255, 0);"-->
+                <!--                ></div>-->
             </div>
 
             <!-- 下方按钮 -->
@@ -75,7 +79,7 @@
                     </div>
                 </div>
                 <!-- 输入框有内容才能enabled -->
-                <button class="submit-button" type="submit">
+                <button class="submit-button" type="submit" id="submit-button">
                     <span class="button-content">发送</span>
                 </button>
             </div>
@@ -100,8 +104,7 @@
     </div>
 
     <!-- 微博内容 -->
-    <div class="weibo-body-recycle-scroller">
-        <!-- TODO: 用thymeleaf实现循环，显示多个微博 -->
+    <div class="weibo-body-recycle-scroller" style="margin: 10px">
 
         <div class="weibo-body-single" th:each="weibo:${weibos}">
             <article class="weibo-body">
@@ -109,7 +112,9 @@
                     <!-- 用户头像、用户名、发送时间 -->
                     <header class="weibo-info">
                         <!-- 用户头像，点击跳转用户页面 -->
-                        <a th:href="@{/myweibo}" class="weibo-info-user-avatar" sec:authorize="isAuthenticated()">
+                        <p hidden id="weibo-id" th:text="${weibo.getId()}"></p>
+                        <a th:href="@{/myWeibo(id=${weibo.getWeiboUser().getId()})}" class="weibo-info-user-avatar"
+                           sec:authorize="isAuthenticated()">
                             <div class="weibo-info-user-avatar-body">
                                 <img
                                         th:src="${weibo.getWeiboUser().getAvatarPath()}"
@@ -130,7 +135,10 @@
                         <!-- 用户名，发送时间 -->
                         <div class="weibo-info-text">
                             <!-- 用户名 -->
-                            <a href="#" class="weibo-info-user-name"
+                            <a th:href="@{/myWeibo(id=${weibo.getWeiboUser().getId()})}" class="weibo-info-user-name"
+                               sec:authorize="isAuthenticated()"
+                               th:text="${weibo.getWeiboUser().getUsername()}"></a>
+                            <a href="#" class="weibo-info-user-name" sec:authorize="!isAuthenticated()"
                                th:text="${weibo.getWeiboUser().getUsername()}"></a>
                             <!--                            <a href="#" class="weibo-info-user-name">LGH</a>-->
                             <!-- 发送时间 -->
@@ -155,22 +163,47 @@
                 <footer class="weibo-content-footer">
                     <div class="weibo-content-footer-body">
                         <!-- 微博下方的评论按钮 -->
-                        <div class="weibo-content-footer-item">
+                        <div class="weibo-content-footer-item" th:onclick="comment_show([[${weibo.getId()}]])"
+                             id="comment-area">
                             <div class="weibo-content-footer-icon-item" title="评论">
                                 <i class="comment-icon"></i>
                             </div>
-                            <span class="icon-num" th:text="${weibo.commentNum}"></span>
+                            <span th:id="'commentNum'+${weibo.getId()}" class="icon-num"
+                                  th:text="${weibo.getCommentNum()}"></span>
                             <!--                            <span class="icon-num">0</span>-->
                         </div>
                         <!-- 微博下方的点赞按钮 -->
-                        <div class="weibo-content-footer-item">
+                        <div class="weibo-content-footer-item" th:onclick="like_add([[${weibo.getId()}]])"
+                             sec:authorize="isAuthenticated()" id="like-area">
                             <div class="weibo-content-footer-icon-item" title="点赞">
                                 <i class="like-icon"></i>
                             </div>
-                            <span class="icon-num" th:text="${weibo.likeNum}"></span>
+                            <span class="icon-num" th:id="'likeNum'+${weibo.getId()}"
+                                  th:text="${weibo.getLikeNum()}"></span>
+                            <!--                            <span class="icon-num">4</span>-->
+                        </div>
+                        <div class="weibo-content-footer-item" onclick="alert('请先登录')"
+                             sec:authorize="!isAuthenticated()">
+                            <div class="weibo-content-footer-icon-item" title="点赞">
+                                <i class="like-icon"></i>
+                            </div>
+                            <span class="icon-num" th:id="'likeNum'+${weibo.getId()}"
+                                  th:text="${weibo.getLikeNum()}"></span>
                             <!--                            <span class="icon-num">4</span>-->
                         </div>
                     </div>
+                    <div class="weibo-comment" sec:authorize="isAuthenticated()">
+                        <div class="weibo-comment-content">
+                            <textarea th:id="'commentText'+${weibo.getId()}" placeholder="发布你的评论"
+                                      class="comment-textarea"></textarea>
+                        </div>
+                        <div class="weibo-comment-btn">
+                            <button class="button-comment" th:onclick="passWeiboId([[${weibo.getId()}]])">
+                                <span>发布</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div th:id="'commentTable'+${weibo.getId()}" class="comment-contents"></div>
                 </footer>
             </article>
         </div>
@@ -193,6 +226,15 @@
     </div>
 </div>
 <script>
+    $(document).on("keyup", "#weiboText-div",
+        function () {
+            $("#weiboText").val($(this).text());
+        });
+
+    $("#welcome-title").click(function () {
+        window.location.href = '/selfWeibo'
+    });
+
     $("#img-icon").click(function () {
         console.log("click!!!");
         document.getElementById("upload-img").click();
@@ -227,6 +269,138 @@
             }
         })
     });
+
+    const at_reg = /@[\u4e00-\u9fa5_a-zA-Z0-9]+\s/g;
+
+    $('#weiboText-div').keypress(function (event) {
+        const keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode === '13') {
+            $(this).append("<br><br>")
+        }
+    });
+    let reg_num = 0
+    $("#weiboText-div").focus(function () {
+        $(this).bind("input propertychange", function () {
+            const input_content = $(this).text();
+            // $(function () {
+            //     $.each(content, function (index, value) {
+            //         alert(index + ': ' + value);
+            //     });
+            // });
+            if (input_content.match(at_reg)) {
+                const target = $("#at-targets")
+                const target_arr = input_content.match(at_reg)
+                target.val("");
+                for (let i = 0; i < target_arr.length; i++) {
+                    target.val(target.val() + String.fromCharCode(32) + target_arr[i]);
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "/patternAt",
+                    data: {
+                        content: input_content,
+                        // authorName: $("#login-userName").text(),
+                        // weiboId: $("#weibo-id").text(),
+                        // targetUser: input_content.match(at_reg)
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        // 保证光标在最后
+                        if (reg_num < input_content.match(at_reg).length) {
+                            reg_num++;
+                            $("#weiboText-div").html(data);
+                            console.log(reg_num)
+                            document.execCommand('selectAll', false, null);
+                            document.getSelection().collapseToEnd();
+                        }
+                    },
+                    error: function () {
+                        alert("ajax错误！")
+                    }
+                });
+
+            }
+
+        })
+    })
+    // .blur(function () {
+    //
+    // });
+
+    function like_add(id) {
+        console.log(id)
+        $.ajax({
+            url: "/likeAdd",
+            type: "get",
+            data: {"weibo_id": id},
+            success: function (data) {
+                $("#likeNum" + id).html(data)
+            },
+            error: function () {
+                alert("点赞出错");
+                // alert("状态码：");
+                // alert("请求状态：" + textStatus);
+                // alert(errorThrown);
+            }
+        })
+        $("#like-area").removeAttr('onclick');
+    }
+
+    function comment_show(id) {
+        $.ajax({
+            url: "/commentShow",
+            type: "get",
+            data: {"weibo_id": id},
+            success: function (data) {
+                console.log(data)
+                const jsonObj = $.parseJSON(data)
+                console.log(jsonObj)
+                if ($("#commentTable" + id).html() === "") {
+                    $.each(jsonObj, function (name, value) {
+                        $("#commentTable" + id).prepend("<p class='single-comment'>" + "<span style='font-weight: bold'>" + value.name.toString() + "</span>" + " :  " + value.content.toString() + "</p><hr/>");
+                    });
+                } else {
+                    $("#commentTable" + id).html("");
+                }
+            },
+            error: function () {
+                alert("评论出错");
+            }
+        })
+    }
+
+    function passWeiboId(id) {
+        console.log(id)
+        let commentText = $("#commentText" + id).val()
+        console.log(commentText)
+        $.ajax({
+            url: "/commentAdd",
+            type: "get",
+            data: {"weibo_id": id, "commentText": commentText},
+            success: function (data) {
+                $("#commentNum" + id).html(data)
+                $("#commentText" + id).val("")
+            },
+            error: function () {
+                alert("发表失败");
+            }
+        })
+        setTimeout("comment_show(" + id + ")", 500)
+    }
+
+    function keepLastIndex(tObj, sPos) {
+        if (tObj.setSelectionRange) {
+            setTimeout(function () {
+                tObj.setSelectionRange(sPos, sPos);
+                tObj.focus();
+            }, 0);
+        } else if (tObj.createTextRange) {
+            const rng = tObj.createTextRange();
+            rng.move('character', sPos);
+            rng.select();
+        }
+
+    }
 </script>
 </body>
 </html>

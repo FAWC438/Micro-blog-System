@@ -30,6 +30,7 @@ public class WeiboUser implements UserDetails {
     private String password;
     @Column(nullable = false, unique = true)
     private String email;
+
     private String emailOutDate;
     private String validCode;
     private boolean AccountNonLocked;
@@ -39,20 +40,26 @@ public class WeiboUser implements UserDetails {
     @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<WeiboRole> roles;
 
-    @OneToMany
-    private List<WeiboUser> weiboUsers = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    private List<Weibo> attentionWeibo = new ArrayList<>();
 
     @OneToMany
     private List<Weibo> weibos = new ArrayList<>();
 
-    @Column(nullable = false)
-    private Integer attentionNum = 0;
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    private List<Weibo> atMeWeibo = new ArrayList<>();
 
-    @Column(nullable = false)
-    private Integer fansNum = 0;
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    private List<WeiboUser> attentionUser = new ArrayList<>();
 
-    @Column(nullable = false)
-    private Integer weiboNum = 0;
+//    @Column(nullable = false)
+//    private Integer attentionNum = 0;
+
+//    @Column(nullable = false)
+//    private Integer fansNum = 0;
+
+    @OneToMany
+    private List<WeiboUser> fansUser = new ArrayList<>();
 
 
     @Override

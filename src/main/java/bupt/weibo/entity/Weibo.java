@@ -28,6 +28,9 @@ public class Weibo {
     @OneToOne
     private WeiboUser weiboUser;
 
+    @ManyToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    private List<WeiboUser> atUsers = new ArrayList<>();
+
     @OneToMany()
     private List<Comment> comments = new ArrayList<>();
 

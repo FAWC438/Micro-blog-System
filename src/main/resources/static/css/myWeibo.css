@@ -1,305 +1,146 @@
-/* fill:#FFA500 */
 
-body {
-    background-color: #f0f8ff;
-    /*background: url("../img/bg.jpg");*/
-    text-align: center;
-}
-
-.welcome-title {
-    font-family: "Microsoft YaHei", serif;
-    font-weight: bolder;
-    font-size: large;
-    cursor: pointer;
-    padding-left: 200px;
-}
-
-.account-info-btn {
+.attention-btn {
     padding: 16px 32px;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     font-weight: bold;
-    margin: 6px 20px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
+    margin-top: 40px;
     cursor: pointer;
-
     border-radius: 10px;
-    /*background-color: white;*/
     background-color: #fff;
     box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
     color: black;
     border: 2px solid #ff8200;
     outline: none;
+    height: 40%;
 }
 
-.account-info-btn:hover {
+.attention-btn:hover {
     background-color: #ff8200;
     color: white;
 }
 
-div.home-warp {
-    height: 100%;
+.page-header {
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    flex-direction: column;
-    -webkit-box-align: stretch;
-    align-items: stretch;
-    /* margin: 0 500px 0 500px; */
-    margin: 0 auto;
-    max-width: 800px;
+    background: url(../img/header_bg.png) no-repeat;
+    width: 100%;
+    height: 150px;
 }
 
-.account-info {
-    /*background-color: #fff;*/
-    border-radius: 4px;
-    /*border-color: #f2f2f2;*/
-    background-color: #fff;
-    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
-    margin-bottom: 8px;
-    padding: 20px 20px 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-
+.usr-left {
 }
 
-/* 发送面板 */
-div.send-panel {
-    /*background-color: #fff;*/
-    background-color: #fff;
-    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
-    border-color: #f2f2f2;
-    margin-bottom: 8px;
-    padding: 20px 20px 10px;
+.usr-avatar {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    margin: 30px 40px;
+    border: 1px solid;
 }
 
-div.input-body {
-    margin: 0 0 10px;
-    line-height: 0;
-    border-radius: 8px;
-    padding: 6px 11px;
-    /*background: #f0f1f4;*/
-    background-color: #fff;
-    /*border: 1px solid #f0f1f4;*/
-    border: none;
-    position: relative;
-}
-
-.input-area {
-    resize: vertical;
-    overflow-x: hidden;
-    overflow-y: auto;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
-    min-height: 24px;
-    max-height: 456px;
-    line-height: 24px;
-    font-size: 14px;
+.user-name {
     text-align: left;
-    border-radius: 5px;
-    color: -moz-default-background-color;
-    width: 100%;
-    height: 48px;
-    padding: 0;
-    border: none;
-    float: left;
-    background-color: #fff;
-    outline: none;
+    color: white;
+    margin: 35px 0 0 30px;
+    font-weight: bold;
 }
 
-div.buttons-flex {
+.detail-num {
     display: flex;
-    flex-direction: row;
+    width: 300px;
+    height: 30px;
+    justify-content: space-around;
+    color: white;
+}
+
+.detail-cate {
+    display: flex;
+    width: 300px;
+    height: 40px;
+    justify-content: space-around;
+    color: darkgray;
+}
+
+.container {
+    background-color: #e7e7e7;
+    height: 1000px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-box {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    width: 170px;
+    height: 1000px;
+    margin: 10px;
+}
+
+.view-container {
+    background-color: white;
+    width: 700px;
+    margin: 10px;
+}
+
+.icon {
+    height: 20px;
+    width: 20px;
+}
+
+.item {
+    display: flex;
+    width: 120px;
     align-items: center;
-    -webkit-box-align: center;
+    margin: 25px 0 0 20px;
 }
 
-div.icon-items {
-    align-self: center;
-    display: flex;
-    flex-direction: row;
-    -webkit-box-flex: 1;
-    box-sizing: border-box;
+.item-name {
+    margin-left: 20px;
 }
 
-div.icon-item {
-    box-sizing: border-box;
-    font-size: 1rem;
-    margin: 0 4px 0 0;
+span {
+    margin-left: 10px;
+}
+
+.title {
+    margin: 10px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    position: relative;
-    width: 34px;
-    height: 34px;
-    cursor: pointer;
-    line-height: 0;
-    overflow: auto;
 }
 
-div.icon-item::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
+.small-avator {
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
 }
 
-div.icon-item:hover {
-    border-radius: 25px;
-    background-color: #ffe8c1;
-}
-
-i.at-icon {
-    font-family: woo, serif;
-    -webkit-font-smoothing: antialiased;
-    font-style: normal;
-    font-feature-settings: normal;
-    font-variant: normal;
-    font-weight: 400;
-    text-decoration: none;
-    text-transform: none;
-    display: inline-block;
-    line-height: 1;
-    position: relative;
-    font-size: 18px;
-    color: #838383;
-}
-
-i.at-icon::before {
-    content: url(../img/at-16.png);
-}
-
-i.img-icon {
-    font-family: woo, serif;
-    -webkit-font-smoothing: antialiased;
-    font-style: normal;
-    font-feature-settings: normal;
-    font-variant: normal;
-    font-weight: 400;
-    text-decoration: none;
-    text-transform: none;
-    display: inline-block;
-    line-height: 1;
-    position: relative;
-    font-size: 18px;
-    color: #838383;
-}
-
-i.img-icon::before {
-    content: url(../img/img-16.png);
-}
-
-button.submit-button {
-    cursor: pointer;
-    margin-left: auto;
-    border: 0;
-    box-sizing: border-box;
-    font-weight: 600;
-    line-height: 1;
-    outline: 0;
-    position: relative;
-    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-    font-size: 0.875rem;
-    width: 68px;
-    padding: 0.5625rem 0;
-    border-radius: 2.25rem;
-    background: #ff8200;
-    color: #fff;
-}
-
-button.submit-button:hover {
-    background: #fff;
-    color: #ff8200;
-}
-
-button.submit-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-
-/* 排序面板 */
-div.sort-panel {
-    opacity: 1;
-    position: sticky;
-    z-index: 89;
-    top: 58px;
-    transition: all 0.15s ease-in;
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
-    border-color: #f2f2f2;
-    margin-bottom: 8px;
-    display: flex;
-    flex-direction: row;
-}
-
-button.sort-panel-button {
-    box-sizing: border-box;
-    vertical-align: top;
+.view-item {
     display: flex;
     align-items: center;
-    -webkit-box-align: center;
-    justify-content: center;
-    -webkit-box-pack: center;
-    height: 44px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-    margin: 0 4px;
-    padding: 5px;
-    border-radius: 15px;
-    line-height: 20px;
+    justify-content: space-between;
+}
+
+.btn {
+    width: 50px;
+    border-radius: 10px;
+    border: 1px solid;
     text-align: center;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    background-color: rgba(255, 255, 255, 0);
-    border: none;
-    outline: none;
+    color: orange;
+    margin-right: 20px;
 }
 
-button.sort-panel-button:hover {
-    background-color: #ffe8c1;
-}
-
-button.sort-panel-button-cur {
-    box-sizing: border-box;
-    vertical-align: top;
+.item-left {
     display: flex;
     align-items: center;
-    -webkit-box-align: center;
-    justify-content: center;
-    -webkit-box-pack: center;
-    height: 44px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-    margin: 0 4px;
-    padding: 5px;
-    border-radius: 15px;
-    line-height: 20px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 14px;
-    color: #ff8200;
-    background-color: rgba(255, 255, 255, 0);
-    border: none;
-    font-weight: bold;
-    outline: none;
+    justify-content: space-around;
+    margin-left: 20px;
 }
 
-button.sort-panel-button-cur:hover {
-    background-color: #ffe8c1;
+a {
+    text-decoration: none;
+    color: black;
 }
 
 /* 微博内容方面 */
@@ -310,6 +151,8 @@ div.weibo-body-recycle-scroller {
     display: flex;
     flex-direction: column;
     overflow: auto;
+    margin: 10px;
+    width: 100%;
 }
 
 div.weibo-body-single {

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html
+        lang="zh"
+        dir="ltr"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>我的微博</title>
+    <link rel="stylesheet" href="/css/myWeibo.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="/js/fans.js"></script>
+</head>
+<body>
+
+<header class="page-header" style="display: flex">
+    <div class="usr-left">
+        <img class="usr-avatar" th:src="${user.getAvatarPath()}" alt="图片显示错误">
+    </div>
+    <div class="usr-info">
+        <p class="user-name" th:text="${user.username}">wtl_bupt</p>
+        <div class="info-detail">
+            <div class="detail-num">
+                <p th:text="${user.getAttentionUser().size()}">212</p>
+                <p id="fansNum" th:text="${user.getFansUser().size()}">45</p>
+                <p th:text="${user.getWeibos().size()}">1152</p>
+            </div>
+            <div class="detail-cate">
+                <p>关注数</p>
+                <p>粉丝数</p>
+                <p>微博数</p>
+            </div>
+        </div>
+    </div>
+    <!--    <p th:if="${curId} eq ${id}">-->
+    <!--        <button>我自己</button>-->
+    <!--    </p>-->
+    <!--    TODO:样式-->
+    <button class="attention-btn" id="attention-btn" th:onclick="attention([[${curId}]], [[${id}]])"
+            th:if="${curId} ne ${id}">关注
+    </button>
+</header>
+<div class="container">
+    <div class="left-box">
+        <a th:href="@{/myWeibo(id=${user.getId()})}">
+            <div class="item">
+                <img class="icon" src="/img/列表_1.png" alt="图片显示错误">
+                <span style="color: orange">我的微博</span>
+            </div>
+        </a>
+        <a href="/fans" th:if="${curId} eq ${id}">
+            <div class="item">
+                <img class="icon" src="/img/关注_0.png" alt="图片显示错误">
+                <span>关注与粉丝</span>
+            </div>
+        </a>
+        <a href="/at" th:if="${curId} eq ${id}">
+            <div class="item">
+                <img class="icon" src="/img/艾特_0.png" alt="图片显示错误">
+                <span>@与我相关</span>
+            </div>
+        </a>
+        <a href="/mainPage">
+            <div class="item">
+                <img class="icon" src="/img/主页.png" alt="图片显示错误">
+                <span>主页</span>
+            </div>
+        </a>
+    </div>
+
+    <div class="weibo-body-recycle-scroller">
+
+        <div class="weibo-body-single" th:each="weibo:${user.getWeibos()}">
+            <article class="weibo-body">
+                <div class="weibo-main">
+                    <!-- 用户头像、用户名、发送时间 -->
+                    <header class="weibo-info" id="weibo-head">
+                        <!-- 用户头像，点击跳转用户页面 -->
+                        <p hidden id="weibo-id" th:text="${weibo.getId()}"></p>
+                        <a th:href="@{/myWeibo(id=${weibo.getWeiboUser().getId()})}" class="weibo-info-user-avatar"
+                           sec:authorize="isAuthenticated()">
+                            <div class="weibo-info-user-avatar-body">
+                                <img
+                                        th:src="${weibo.getWeiboUser().getAvatarPath()}"
+                                        alt="头像显示错误"
+                                        class="weibo-info-user-avatar-img"
+                                />
+                            </div>
+                        </a>
+                        <a href="#" class="weibo-info-user-avatar" sec:authorize="!isAuthenticated()">
+                            <div class="weibo-info-user-avatar-body">
+                                <img
+                                        th:src="${weibo.getWeiboUser().getAvatarPath()}"
+                                        alt="头像显示错误"
+                                        class="weibo-info-user-avatar-img"
+                                />
+                            </div>
+                        </a>
+                        <!-- 用户名，发送时间 -->
+                        <div class="weibo-info-text">
+                            <!-- 用户名 -->
+                            <a th:href="@{/myWeibo(id=${weibo.getWeiboUser().getId()})}" class="weibo-info-user-name"
+                               sec:authorize="isAuthenticated()"
+                               th:text="${weibo.getWeiboUser().getUsername()}"></a>
+                            <a href="#" class="weibo-info-user-name" sec:authorize="!isAuthenticated()"
+                               th:text="${weibo.getWeiboUser().getUsername()}"></a>
+                            <!--                            <a href="#" class="weibo-info-user-name">LGH</a>-->
+                            <!-- 发送时间 -->
+                            <p th:text="${weibo.getReleaseTime()}" class="weibo-info-send-date">
+                                5分钟前
+                            </p>
+                        </div>
+                    </header>
+                    <!-- 微博内容 -->
+                    <div class="weibo-content">
+                        <div class="weibo-content-text" th:text="${weibo.weiboText}">hello world</div>
+                        <!--                        <div class="weibo-content-text">wtl</div>-->
+                        <div class="weibo-content-img" th:each="pic:${weibo.getPictures()}">
+                            <!-- 可以多个图片 -->
+                            <div class="weibo-content-img-single">
+                                <!--                                <img src="/img/test.jpg" alt="图片显示错误"/>-->
+                                <img th:src="${pic.getPicturePath()}" alt="图片显示错误"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="weibo-content-footer">
+                    <div class="weibo-content-footer-body">
+                        <!-- 微博下方的评论按钮 -->
+                        <div class="weibo-content-footer-item" th:onclick="comment_show([[${weibo.getId()}]])"
+                             id="comment-area">
+                            <div class="weibo-content-footer-icon-item" title="评论">
+                                <i class="comment-icon"></i>
+                            </div>
+                            <span th:id="'commentNum'+${weibo.getId()}" class="icon-num"
+                                  th:text="${weibo.getCommentNum()}"></span>
+                            <!--                            <span class="icon-num">0</span>-->
+                        </div>
+                        <!-- 微博下方的点赞按钮 -->
+                        <div class="weibo-content-footer-item" th:onclick="like_add([[${weibo.getId()}]])"
+                             sec:authorize="isAuthenticated()" id="like-area">
+                            <div class="weibo-content-footer-icon-item" title="点赞">
+                                <i class="like-icon"></i>
+                            </div>
+                            <span class="icon-num" th:id="'likeNum'+${weibo.getId()}"
+                                  th:text="${weibo.getLikeNum()}"></span>
+                            <!--                            <span class="icon-num">4</span>-->
+                        </div>
+                        <div class="weibo-content-footer-item" onclick="alert('请先登录')"
+                             sec:authorize="!isAuthenticated()">
+                            <div class="weibo-content-footer-icon-item" title="点赞">
+                                <i class="like-icon"></i>
+                            </div>
+                            <span class="icon-num" th:id="'likeNum'+${weibo.getId()}"
+                                  th:text="${weibo.getLikeNum()}"></span>
+                            <!--                            <span class="icon-num">4</span>-->
+                        </div>
+                    </div>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function attention(curId, id) {
+        $.ajax({
+            url: "/checkAttention",
+            type: "get",
+            data: {"curId": curId, "id": id},
+            success: function (data) {
+                const btn = $("#attention-btn");
+                if (data === "True") {
+                    btn.css("background-color", "#ff8200")
+                    btn.text("已关注")
+                } else if (data === "False") {
+                    btn.css("background-color", "#fff")
+                    btn.text("关注")
+                } else {
+                    alert("关注服务不可用")
+                }
+                location.reload()
+            },
+            error: function () {
+                alert("ajax出错");
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -20,10 +20,12 @@
                     type="text"
                     name="email"
                     placeholder="E-mail"
+                    title="请输入格式如example@bupt.com的邮箱地址"
                     class="txtb"
                     autofocus="autofocus"
                     required="required"
                     autocomplete="off"
+                    pattern="[\w\-.]+@[\w\-.]+(\.\w+)+"
             />
         </label>
         <label>
@@ -47,7 +49,7 @@
         </label>
         <!--        <button id="upload-btn" name="upload-btn" class="upload-btn">上传头像</button>-->
         <!--        <input type="file" value="上传头像" id="upload-input" name="upload-input" style="display:none"/>-->
-        <input type="submit" value="注册" class="signup-btn"/>
+        <input type="submit" value="注册" id="register-btn" class="signup-btn"/>
         <input type="button" value="登录" id="login" name="login" class="signup-btn" style="margin-top: 20px;"/>
         <a href="https://github.com/FAWC-bupt/WebFinal">Star us on Github</a>
     </form>

@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login/**", "/error/**", "/register/**", "/mainPage", "/activeUserEmail", "/static/**", "/h2-console/**").permitAll()
+                .antMatchers("/login/**", "/error/**", "/register/**", "/mainPage", "/activeUserEmail", "/static/**", "/h2-console/**", "/commentShow").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 // 配置被拦截时的处理

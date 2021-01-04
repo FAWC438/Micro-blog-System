@@ -15,6 +15,11 @@ public class Comment {
     @Column(nullable = false)
     private String commentText;
 
-    @OneToOne
+    @ManyToOne()
+//    @JoinColumn(name = "weibo_user_id")
     private WeiboUser weiboUser;
+
+    @ManyToOne()
+    @JoinColumn(name = "weibo_id")
+    private Weibo weibo;
 }

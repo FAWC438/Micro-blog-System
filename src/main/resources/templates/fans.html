@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>关注与粉丝</title>
+    <link rel="stylesheet" href="/css/fans.css">
+    <script src="/js/fans.js"></script>
+</head>
+<body>
+
+<header class="page-header">
+    <div class="usr-left">
+        <img class="usr-avatar" th:src="${user.getAvatarPath()}" alt="图片显示错误">
+    </div>
+    <div class="usr-info">
+        <p class="user-name" th:text="${user.username}">wtl_bupt</p>
+        <div class="info-detail">
+            <div class="detail-num">
+                <p th:text="${user.getAttentionUser().size()}">212</p>
+                <p id="fansNum" th:text="${user.getFansUser().size()}">45</p>
+                <p th:text="${user.getWeibos().size()}">1152</p>
+            </div>
+            <div class="detail-cate">
+                <p>关注数</p>
+                <p>粉丝数</p>
+                <p>微博数</p>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="left-box">
+        <a th:href="@{/myWeibo(id=${user.getId()})}">
+            <div class="item">
+                <img class="icon" src="/img/列表_0.png" alt="图片显示错误">
+                <span>我的微博</span>
+            </div>
+        </a>
+        <a href="/fans">
+            <div class="item">
+                <img class="icon" src="/img/关注_1.png" alt="图片显示错误">
+                <span style="color: orange">关注与粉丝</span>
+            </div>
+        </a>
+        <a href="/at">
+            <div class="item">
+                <img class="icon" src="/img/艾特_0.png" alt="图片显示错误">
+                <span>@与我相关</span>
+            </div>
+        </a>
+        <a href="/mainPage">
+            <div class="item">
+                <img class="icon" src="/img/主页.png" alt="图片显示错误">
+                <span>主页</span>
+            </div>
+        </a>
+    </div>
+    <div class="view-container">
+        <div class="title">
+            <h3>我的关注</h3>
+            <span>共<span th:text="${user.getAttentionUser().size()}">3</span>人</span>
+        </div>
+        <div th:each="attUser:${user.getAttentionUser()}">
+            <div class="view-item">
+                <div class="item-left">
+                    <a class="item-img" th:href="@{/myWeibo(id=${attUser.getId()})}">
+                        <img th:src="${attUser.getAvatarPath()}" class="small-avator" alt="图片显示错误">
+                    </a>
+                    <a class="item-name" th:href="@{/myWeibo(id=${attUser.getId()})}">wtl_bupt</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="view-container">
+        <div class="title">
+            <h3>我的粉丝</h3>
+            <span>共<span th:text="${user.getFansUser().size()}">3</span>人</span>
+        </div>
+        <div th:each="fanUser:${user.getFansUser()}">
+            <div class="view-item">
+                <div class="item-left">
+                    <a class="item-img" th:href="@{/myWeibo(id=${fanUser.getId()})}">
+                        <img th:src="${fanUser.getAvatarPath()}" class="small-avator" alt="图片显示错误">
+                    </a>
+                    <a class="item-name" th:href="@{/myWeibo(id=${fanUser.getId()})}">wtl_bupt</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

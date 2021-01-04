@@ -100,3 +100,10 @@ body {
     transition: 0.8s;
     display: block;
 }
+
+legend {
+    display: none;
+    font-weight: bolder;
+    padding: 0;
+    /*background:white;*/
+}
