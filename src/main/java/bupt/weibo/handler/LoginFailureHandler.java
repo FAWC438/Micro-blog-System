@@ -70,7 +70,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             return;
         }
 
-        System.out.println(user);
+        // System.out.println(user);
         //user.setLockCount(user.getLockCount() + 1);
 
         //计数器加1，并判断该用户是否已经到了触发了锁定规则

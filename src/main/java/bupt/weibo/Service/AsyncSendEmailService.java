@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 @Service
-
 public class AsyncSendEmailService {
     private UserRepository userRepository;
 
@@ -33,7 +32,7 @@ public class AsyncSendEmailService {
     @Async   //这是一个异步方法
     public void sendVerifyEmail(String email, String action) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             String secretKey = UUID.randomUUID().toString(); // 密钥
             Timestamp outDate = new Timestamp(System.currentTimeMillis() + 30 * 60 * 1000);// 30分钟后过期
             long date = outDate.getTime() / 1000 * 1000;

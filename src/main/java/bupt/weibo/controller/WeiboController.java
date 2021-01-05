@@ -20,16 +20,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -208,14 +203,14 @@ public class WeiboController {
         user.getWeibos().add(weibo);
         userRepository.save(user);
 
-        if (!list.isEmpty()) {
-            for (WeiboUser u : list) {
-                System.out.println(u);
-//                weibo.getAtUsers().add(u);
-                u.getAtMeWeibo().add(weibo);
-                userRepository.save(u);
-            }
-        }
+//        if (!list.isEmpty()) {
+//            for (WeiboUser u : list) {
+//                System.out.println(u);
+////                weibo.getAtUsers().add(u);
+//                u.getAtMeWeibo().add(weibo);
+//                userRepository.save(u);
+//            }
+//        }
 
         return "redirect:/mainPage";
     }

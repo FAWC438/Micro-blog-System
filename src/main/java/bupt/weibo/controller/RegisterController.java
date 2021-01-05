@@ -147,7 +147,7 @@ public class RegisterController {
 
             rabbitTemplate.convertAndSend("reg_email", user.getEmail());
             asyncSendEmailService.sendVerifyEmail(user.getEmail(), "activeUserEmail");
-            //send email 已经异步执行,下面代码注释掉
+            //send email 已经异步执行
         } catch (Exception e) {
             //logger.error("create user failed, ", e);
             e.printStackTrace();
